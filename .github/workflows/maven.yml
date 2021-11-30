@@ -43,4 +43,3 @@ jobs:
       run: |
         cd ERS 
         mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=marshall-hobbs96_ERS
-        mvn -B package --file pom.xml
