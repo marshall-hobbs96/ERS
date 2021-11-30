@@ -13,6 +13,7 @@ import io.javalin.Javalin;
 import io.javalin.http.Handler;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Controller {
 	
@@ -66,8 +67,20 @@ public class Controller {
 		
 		
 		int user_id = Integer.parseInt(ctx.pathParam("user_id")); //Get the id of the user we want to delete from the URI
-	
+		
+		ERS_user currentUser = (ERS_user) ctx.req.getAttribute("currentuser");
+		
 		try {
+		
+			if(currentUser.getUser_role().compareTo("employee") == 0) {	//employees should only be able to delete themselves
+				
+				user_id = currentUser.getUser_id();
+				
+			} else if(currentUser.getUser_role().compareTo("manager") != 0) {
+				
+				throw new IllegalArgumentException("Role is not authorized");
+				
+			}		
 			
 			
 			if(service.deleteUser(user_id)) {
@@ -106,6 +119,34 @@ public class Controller {
 	
 	public Handler getAllUsers = (ctx) -> {
 		
+		ArrayList<ERS_user> user_list = new ArrayList<>();
+		logger.info("getAllUsers called");
+		
+		ERS_user currentUser = (ERS_user) ctx.req.getAttribute("currentuser");
+		
+		try {
+			
+			if(currentUser.getUser_role().compareTo("manager") != 0) {
+				
+				throw new SQLException("Role is not authorized");
+				
+			}
+			
+			user_list = service.getAllUsers();
+			
+			ctx.json(user_list);
+			ctx.status(200);
+			logger.info(user_list.toString());
+			
+		}
+		
+		catch(Exception e) {
+			
+			ctx.result(e.getMessage());
+			ctx.status(400);
+			
+		}
+		
 		
 		
 	};
@@ -114,11 +155,25 @@ public class Controller {
 		
 		int user_id = Integer.parseInt(ctx.pathParam("user_id"));
 		
+		ERS_user currentUser = (ERS_user) ctx.req.getAttribute("currentuser");
+		
 		try {
 			
+			if(currentUser.getUser_role().compareTo("employee") == 0) {	//employees should only be able to acess their own info
+				
+				user_id = currentUser.getUser_id();
+				
+			} else if(currentUser.getUser_role().compareTo("manager") != 0) {
+				
+				throw new IllegalArgumentException("Role is not authorized");
+				
+			}
+			
+			
+				
 			ctx.json(service.getUser(user_id));
 			ctx.status(200);
-			
+				
 		}
 		
 		catch(SQLException e) {
@@ -179,8 +234,6 @@ public class Controller {
 			session.setAttribute("currentuser", user);
 			
 			ctx.status(200);
-			user.setErs_username("");
-			user.setErs_password("");
 			ctx.json(user);
 			
 			
@@ -205,21 +258,21 @@ public class Controller {
 		
 	};
 	
-	public Handler getSelf = (ctx) -> {
-		
-		//method stub
-		
-	};
+//	public Handler getSelf = (ctx) -> {
+//		
+//		//method stub
+//		
+//	};
 	
 	
 
 	public void registerEndpoints(Javalin app) {
 		//ers_users table endpoints
-		//app.get("/ers_users/login", loginUser);	
+		app.post("/ers_users/login", loginUser);	
 		app.post("/ers_users", createUser);		
 		app.delete("/ers_users/{user_id}", deleteUser);
 		//app.patch("/ers_users", updateUser);
-		//app.get("/ers_users", getAllUsers);
+		app.get("/ers_users", getAllUsers);
 		app.get("/ers_users/{user_id}", getUser);
 		//app.get("/ers_users", getSelf);
 		//ers_reimbursements endpoints

@@ -97,9 +97,31 @@ public class DAL {
 		
 	}
 	
-	public ArrayList<ERS_user> getAllUsers() {
+	public ArrayList<ERS_user> getAllUsers() throws SQLException {
 		
-		return new ArrayList<ERS_user>();//method stub
+		String sql = "SELECT * FROM ers_users;";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		ResultSet resultSet = statement.executeQuery();
+		
+		ArrayList<ERS_user> userList = new ArrayList<>();
+		
+		while(resultSet.next()) {
+			
+			ERS_user user = new ERS_user();
+			
+			user.setUser_id(resultSet.getInt("user_id"));
+			user.setUser_first_name(resultSet.getString("user_first_name"));
+			user.setUser_last_name(resultSet.getString("user_last_name"));
+			user.setUser_role(resultSet.getString("user_role"));
+			user.setUser_email(resultSet.getString("user_email"));
+			
+			userList.add(user);
+			
+		}
+		
+		return userList;//method stub
 		
 	}
 	
@@ -258,5 +280,28 @@ public class DAL {
 		
 	}
 	
-	
+	public ERS_user getUserByUsername(String username) throws SQLException {
+		
+		String sql = "SELECT * FROM ers_users WHERE ers_username = ?;";
+		
+		PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		statement.setString(1, username);
+		
+		ResultSet resultSet = statement.executeQuery();
+		
+		if(!resultSet.next()) {
+			
+			throw new SQLException("Invalid login credentials");
+			
+		}
+		
+		ERS_user user = new ERS_user();
+		user.setErs_username(resultSet.getString("ers_username"));
+		user.setErs_password(resultSet.getString("ers_password"));
+		user.setUser_email(resultSet.getString("user_email"));
+		
+		return user;
+		
+	}
 }

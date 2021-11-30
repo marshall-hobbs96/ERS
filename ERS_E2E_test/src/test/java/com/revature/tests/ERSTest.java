@@ -1,10 +1,21 @@
 package com.revature.tests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Random;
+
 import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.revature.model.CreateUserPage;
+import com.revature.model.LoginPage;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,7 +25,7 @@ public class ERSTest {
 	
 	private WebDriver driver;
 
-	@BeforeAll
+	@BeforeEach
 	public void setup() {
 		
 		System.setProperty("webdriver.chrome.driver", "C:/WebDrivers/chromedriver.exe");
@@ -22,7 +33,7 @@ public class ERSTest {
 		
 	}
 	
-	@AfterAll
+	@AfterEach
 	public void quit() {
 		
 		driver.quit();
@@ -31,98 +42,165 @@ public class ERSTest {
 	
 	@Given("I am at the login page")
 	public void i_am_at_the_login_page() {
-	    driver.get("http://revature-project-1.s3-website.us-east-2.amazonaws.com");
+		
+		System.setProperty("webdriver.chrome.driver", "C:/WebDrivers/chromedriver.exe");
+		driver = new ChromeDriver();
+		
+	    driver.get(LoginPage.URL);
+	    
 	}
 
 	@When("I select the create new account button")
 	public void i_select_the_create_new_account_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+
+		WebElement signupButton = driver.findElement(By.xpath(LoginPage.newUserButton));
+		signupButton.click();
+		
 	}
 
 	@Then("I should be taken to the create new account page")
 	public void i_should_be_taken_to_the_create_new_account_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+
+	    String currentURL = driver.getCurrentUrl();
+	    assertEquals(CreateUserPage.URL, currentURL);
+	    driver.close();
+	    driver.quit();
 	}
 
 	@Given("I am at the create account page")
 	public void i_am_at_the_create_account_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+
+		System.setProperty("webdriver.chrome.driver", "C:/WebDrivers/chromedriver.exe");
+		driver = new ChromeDriver();
+		
+		driver.get(CreateUserPage.URL);
 	}
 
 	@When("I type in a new unique username into the username field")
 	public void i_type_in_a_new_unique_username_into_the_username_field() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	
+		Random newRandGen = new Random();
+		String newUsername = ""; 
+		
+		for(int i = 0; i < 20; i++) {
+			
+			newUsername += (char)newRandGen.nextInt();
+			
+		}
+		
+	    WebElement usernameField = driver.findElement(By.xpath(CreateUserPage.usernameField));
+	    usernameField.sendKeys(newUsername);
 	}
 
 	@When("I type in a new unique password into the password field")
 	public void i_type_in_a_new_unique_password_into_the_password_field() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		
+		String newPassword = "password"; //Luckily password doesnt need to be unique, unlike username
+		
+		WebElement passwordField = driver.findElement(By.xpath(CreateUserPage.passwordField));
+		WebElement retypePasswordField = driver.findElement(By.xpath(CreateUserPage.retypePasswordField));
+		retypePasswordField.sendKeys(newPassword);
+		passwordField.sendKeys(newPassword);
+		
 	}
 
 	@When("I type in a first name into the first name field")
 	public void i_type_in_a_first_name_into_the_first_name_field() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    
+		String firstname = "firstname";
+		
+		WebElement firstnameField = driver.findElement(By.xpath(CreateUserPage.firstNameField));
+		firstnameField.sendKeys(firstname);
+		
 	}
 
 	@When("I type in a last name into the last name field")
 	public void i_type_in_a_last_name_into_the_last_name_field() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    
+		String newLastname = "lastname";
+		
+		WebElement lastnameField = driver.findElement(By.xpath(CreateUserPage.lastNameField));
+		lastnameField.sendKeys(newLastname);
+		
 	}
 
 	@When("I type in a new unique email into the email field")
 	public void i_type_in_a_new_unique_email_into_the_email_field() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+
+		Random newRandGen = new Random();
+		String newEmail = ""; 
+		
+		for(int i = 0; i < 20; i++) {
+			
+			newEmail += (char)newRandGen.nextInt();
+			
+		}
+		
+		newEmail += "@gmail.com";
+		
+		WebElement emailField = driver.findElement(By.xpath(CreateUserPage.emailField));
+		emailField.sendKeys(newEmail);
+		  
 	}
 
 	@Then("I should see a message telling me a new user has been created")
 	public void i_should_see_a_message_telling_me_a_new_user_has_been_created() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		//Message that should display in submitButton helper: User successfully created
+		
+		WebElement submitHelper = driver.findElement(By.xpath(CreateUserPage.submitHelper));
+		assertEquals("User successfully created", submitHelper.getText());
+		driver.close();
+		driver.quit();
+		
 	}
 
 
 	@Then("I should see a message telling me I am missing a username")
 	public void i_should_see_a_message_telling_me_i_am_missing_a_username() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    WebElement usernameHelper = driver.findElement(By.xpath(CreateUserPage.usernameHelper));
+	    assertEquals("Please enter a valid username", usernameHelper.getText());
+	    driver.close();
+	    driver.quit();
 	}
 
 	@Then("I should see a message telling me I am missing a password")
 	public void i_should_see_a_message_telling_me_i_am_missing_a_password() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    WebElement passwordHelper = driver.findElement(By.xpath(CreateUserPage.passwordHelper));
+	    assertEquals("Please enter a valid password", passwordHelper.getText());
+	    driver.close();
+	    driver.quit();
 	}
 
 	@Then("I should see a message telling me I am missing a first name")
 	public void i_should_see_a_message_telling_me_i_am_missing_a_first_name() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    WebElement firstnameHelper = driver.findElement(By.xpath(CreateUserPage.firstnameHelper));
+	    assertEquals("Please enter a valid firstname", firstnameHelper.getText());
+	    driver.close();
+	    driver.quit();
 	}
 
 	@Then("I should see a message telling me I am missing a last name")
 	public void i_should_see_a_message_telling_me_i_am_missing_a_last_name() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    WebElement lastnameHelper = driver.findElement(By.xpath(CreateUserPage.lastnameHelper));
+	    assertEquals("Please enter a valid lastname", lastnameHelper.getText());
+	    driver.close();
+	    driver.quit();
 	}
 
 	@Then("I should see a message telling me I am missing an email")
 	public void i_should_see_a_message_telling_me_i_am_missing_an_email() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    WebElement emailHelper = driver.findElement(By.xpath(CreateUserPage.emailHelper));
+	    assertEquals("Please enter a valid email", emailHelper.getText());
+	    driver.close();
+	    driver.quit();
 	}
 
 	@When("I type in an existing username into the username field")
 	public void i_type_in_an_existing_username_into_the_username_field() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    String existingUsername = "username";
+	    WebElement usernameField = driver.findElement(By.xpath(CreateUserPage.usernameField));
+	    usernameField.sendKeys(existingUsername);
+	    
 	}
 
 	@Then("I should see a message telling me username is already taken")
@@ -133,8 +211,17 @@ public class ERSTest {
 
 	@When("I type in an existing email into the email field")
 	public void i_type_in_an_existing_email_into_the_email_field() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    
+		String existingEmail = "email@gmail.com";
+		WebElement emailField = driver.findElement(By.xpath(CreateUserPage.emailField));
+		emailField.sendKeys(existingEmail);
+		
+	}
+	
+	@When("I click the create user submit button")
+	public void i_click_the_create_user_submit_button() {
+	    WebElement userSubmit = driver.findElement(By.xpath(CreateUserPage.submitButton));
+	    userSubmit.click();
 	}
 
 	@Then("I should see a message telling me email is already taken")
@@ -145,14 +232,42 @@ public class ERSTest {
 
 	@When("I type in an invalid \\(no domain name) email into the email field")
 	public void i_type_in_an_invalid_no_domain_name_email_into_the_email_field() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		String invalidEmail = "email";
+		WebElement emailField = driver.findElement(By.xpath(CreateUserPage.emailField));
+		emailField.sendKeys(invalidEmail);
 	}
 
 	@Then("I should see a message telling me I have an invalid email")
 	public void i_should_see_a_message_telling_me_i_have_an_invalid_email() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    WebElement emailHelper = driver.findElement(By.xpath(CreateUserPage.emailHelper));
+	    assertEquals("Please enter a valid email", emailHelper.getText());
+	    driver.close();
+	    driver.quit();
+	}
+	
+	@When("I type in a new unique password into the password field but forget to retype password")
+	public void i_type_in_a_new_unique_password_into_the_password_field_but_forget_to_retype_password() {
+	    WebElement passwordField = driver.findElement(By.xpath(CreateUserPage.passwordField));
+	    
+	    passwordField.sendKeys("password");
+	}
+
+	@Then("I should see a message telling me the retyped password doesnt match")
+	public void i_should_see_a_message_telling_me_the_retyped_password_doesnt_match() {
+	    WebElement retypedPasswordHelper = driver.findElement(By.xpath(CreateUserPage.retypePasswordHelper));
+	    assertEquals("Passwords don't match!", retypedPasswordHelper.getText());
+	    driver.close();
+	    driver.quit();
+	}
+
+	@When("I type in a new unique password into the password field but retyped password doesnt match")
+	public void i_type_in_a_new_unique_password_into_the_password_field_but_retyped_password_doesnt_match() {
+	    WebElement passwordField = driver.findElement(By.xpath(CreateUserPage.passwordField));
+	    WebElement retypedPasswordField = driver.findElement(By.xpath(CreateUserPage.retypePasswordField));
+	    
+	    passwordField.sendKeys("password");
+	    retypedPasswordField.sendKeys("passwoooord");
+	    
 	}
 	
 	@Given("I am at the welcome page")

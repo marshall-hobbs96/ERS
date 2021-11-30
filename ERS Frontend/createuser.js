@@ -11,7 +11,7 @@ let retypePasswordHelp = document.evaluate("//body/div[2]/div[2]/div[1]/div[4]/d
 let firstnameHelp = document.evaluate("//body/div[2]/div[2]/div[1]/div[5]/div[1]/div[1]/div[1]/p[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 let lastnameHelp = document.evaluate("//body/div[2]/div[2]/div[1]/div[6]/div[1]/div[1]/div[1]/p[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 let emailHelp = document.evaluate("//body/div[2]/div[2]/div[1]/div[7]/div[1]/div[1]/div[1]/p[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
-
+let submitHelper = document.evaluate("//body/div[2]/div[2]/div[1]/div[9]/p[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 
 let url = 'localhost';
 usernameForm.addEventListener('input', verifyUsername);
@@ -24,7 +24,7 @@ submitButton.addEventListener('click', async () => {    //Just grabbing all the 
 
     let userToAdd = {   //Fills out all the data for our ers user object. Defaults to role of employee on server, and postgres db will handle assinging it an ID. 
 
-        'ers_username' : usernameForm.value,
+        'ers_username' : usernameForm.value.trim(),
         'ers_password' : passwordForm.value,
         'user_first_name' : firstnameForm.value,
         'user_last_name' : lastnameForm.value,
@@ -79,7 +79,7 @@ submitButton.addEventListener('click', async () => {    //Just grabbing all the 
 
         }
 
-        if((/\s/).test(trimmedUsername)){    //tests if our username has any whitespace in it
+        if((/\s/).test(userToAdd.ers_username)){    //tests if our username has any whitespace in it
 
             usernameHelp.textContent = "Username must be one word. No whitespace between characters!";
             goodToGo = false; 
@@ -96,6 +96,7 @@ submitButton.addEventListener('click', async () => {    //Just grabbing all the 
         if(!(/^\S+@\S+\.\S+$/).test(emailForm.value)) { 
             
             emailHelp.textContent="Please enter a valid email";
+            goodToGo = false; 
 
         }
 
@@ -142,11 +143,13 @@ submitButton.addEventListener('click', async () => {    //Just grabbing all the 
 
         let data = await res.json();    //This will just spit back out the user we just created. 
         console.log(data);
+        submitHelper.textContent = "User successfully created";
 
     }
     catch(err) {
 
         console.log(err);
+        submitHelper.textContent = err;
 
     }
 

@@ -9,18 +9,24 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.revature.DAL.DAL;
+import com.revature.controller.Controller;
 import com.revature.model.ERS_reimbursement;
 import com.revature.model.ERS_user;
 
 public class Service {
 
 	private DAL dao; 
+	private Logger logger; 
 	
 	
 	public Service(DAL dao) {	
 		
 		this.dao = dao;
+		logger = LoggerFactory.getLogger(Service.class);
 		
 	}
 	
@@ -45,15 +51,7 @@ public class Service {
 		
 		//Probably gunna move all this to a helper function. Im probably gunna have to use most of it again anyways for other user altering methods. 
 		
-		if(dao.checkEmailTaken(newUser)) {
-			
-			throw new IllegalArgumentException("Unable to create new user. Email is taken. Please specify a different email");
-			
-		} else if(dao.checkUsernameTaken(newUser)) {
-			
-			throw new IllegalArgumentException("Unable to create new user. Username is taken. Please specify a different username");
-			
-		} else if ((newUser.getUser_role().compareTo("employee") != 0) && (newUser.getUser_role().compareTo("manager") != 0)) {
+		if ((newUser.getUser_role().compareTo("employee") != 0) && (newUser.getUser_role().compareTo("manager") != 0)) {
 			
 			throw new IllegalArgumentException("Unable to create new user. User role is invalid. Available roles include 'employee' and 'manager'");
 			
@@ -139,7 +137,7 @@ public class Service {
 		//Need to add username/password hashing here
 		//Need to salt with email too
 		
-		String usernameWithSalt = newUser.getErs_username() + newUser.getUser_email();
+		String usernameWithSalt = newUser.getErs_username(); //Im an idiot, you dont salt the username, duh
 		String passwordWithSalt = newUser.getErs_password() + newUser.getUser_email();
 		
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -152,6 +150,16 @@ public class Service {
 		byte[] digest2 = md.digest();
 		
 		newUser.setErs_password(String.format("%064x", new BigInteger(1, digest2)));
+		
+		if(dao.checkEmailTaken(newUser)) {
+			
+			throw new IllegalArgumentException("Unable to create new user. Email is taken. Please specify a different email");
+			
+		} else if(dao.checkUsernameTaken(newUser)) {
+			
+			throw new IllegalArgumentException("Unable to create new user. Username is taken. Please specify a different username");
+			
+		}
 		
 		
 		
@@ -184,9 +192,9 @@ public class Service {
 		
 	}
 	
-	public ArrayList<ERS_user> getAllUsers() {
+	public ArrayList<ERS_user> getAllUsers() throws SQLException {
 		
-		return new ArrayList<ERS_user>(); ///method stub
+		return dao.getAllUsers(); 
 		
 	}
 	
@@ -203,8 +211,7 @@ public class Service {
 	public ERS_user getUserByUsernamePassword(ERS_user user) throws NoSuchAlgorithmException, SQLException {
 		
 		
-		String usernameWithSalt = user.getErs_username() + user.getUser_email();
-		String passwordWithSalt = user.getErs_password() + user.getUser_email();
+		String usernameWithSalt = user.getErs_username();
 		
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
 		md.update(usernameWithSalt.getBytes(StandardCharsets.UTF_8));
@@ -212,12 +219,26 @@ public class Service {
 		
 		user.setErs_username(String.format("%064x", new BigInteger(1, digest)));
 		
+		
+		ERS_user actualUser = dao.getUserByUsername(user.getErs_username());
+		
+		String passwordWithSalt = user.getErs_password() + actualUser.getUser_email();
+		
 		md.update(passwordWithSalt.getBytes(StandardCharsets.UTF_8));
 		byte[] digest2 = md.digest();
 		
 		user.setErs_password(String.format("%064x", new BigInteger(1, digest2)));
+	
 		
-		dao.getUserByUsernamePassword(user.getErs_username(), user.getErs_password());
+		
+		if(actualUser.getErs_password().compareTo(user.getErs_password()) != 0) {
+			
+			throw new SQLException("Invalid login credentials");
+			
+		}
+		
+		user.setErs_username("");
+		user.setErs_password("");
 		
 		return user; //method stub
 		

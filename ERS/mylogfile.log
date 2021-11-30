@@ -199,3 +199,307 @@ java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatem
 29 Nov 2021 - 09:45:14.777 [qtp1209770703-16] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
 29 Nov 2021 - 09:45:14.777 [qtp1209770703-16] INFO  com.revature.controller.Controller - Create user method called
 29 Nov 2021 - 09:45:14.807 [qtp1209770703-16] INFO  com.revature.controller.Controller - New user created successfully: ERS_user [user_id=4, ers_username=f22a0d116894ba3b3f7d56f4e10c96c76f1098d39ca5ce7de8c350910ba793bd, ers_password=2a389d91c5b11cac79f56f76bc980ae1e590d169f02a6b3036a6ba3d99b44528, user_first_name=Marshall, user_last_name=Hobbs, user_email=marshall2@gmail.com, user_role=employee]
+30 Nov 2021 - 09:32:56.482 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+30 Nov 2021 - 09:32:56.499 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @1602ms to org.eclipse.jetty.util.log.Slf4jLog
+30 Nov 2021 - 09:32:56.500 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+30 Nov 2021 - 09:32:56.527 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+30 Nov 2021 - 09:32:56.779 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+30 Nov 2021 - 09:32:56.780 [main] INFO  io.javalin.Javalin - Javalin started in 281ms \o/
+30 Nov 2021 - 09:32:59.238 [qtp1094674892-23] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 09:32:59.239 [qtp1094674892-23] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 09:32:59.620 [qtp1094674892-23] ERROR com.revature.controller.Controller - Unable to create new user. Email is taken. Please specify a different email
+30 Nov 2021 - 09:33:06.197 [qtp1094674892-16] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 09:33:06.197 [qtp1094674892-16] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 09:33:06.239 [qtp1094674892-16] INFO  com.revature.controller.Controller - New user created successfully: ERS_user [user_id=5, ers_username=, ers_password=, user_first_name=Marshall, user_last_name=Hobbs, user_email=marshall3@gmail.com, user_role=employee]
+30 Nov 2021 - 09:33:39.681 [qtp1094674892-22] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 09:33:39.681 [qtp1094674892-22] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 09:33:39.693 [qtp1094674892-22] INFO  com.revature.controller.Controller - New user created successfully: ERS_user [user_id=6, ers_username=, ers_password=, user_first_name=Marshall, user_last_name=Hobbs, user_email=marshall4@gmail.com, user_role=employee]
+30 Nov 2021 - 09:34:25.224 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+30 Nov 2021 - 09:34:25.239 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @1125ms to org.eclipse.jetty.util.log.Slf4jLog
+30 Nov 2021 - 09:34:25.240 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+30 Nov 2021 - 09:34:25.264 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+30 Nov 2021 - 09:34:25.447 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+30 Nov 2021 - 09:34:25.447 [main] INFO  io.javalin.Javalin - Javalin started in 207ms \o/
+30 Nov 2021 - 09:35:12.690 [qtp1750286943-20] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 09:35:12.970 [qtp1750286943-20] WARN  io.javalin.Javalin - Uncaught exception
+com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'password': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (String)"{
+
+    "ers_username" : "username",
+    "ers_password" : password
+
+}"; line: 4, column: 30]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2391)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:745)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:2962)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2002)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextFieldName(ReaderBasedJsonParser.java:1016)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.vanillaDeserialize(BeanDeserializer.java:320)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.deserialize(BeanDeserializer.java:176)
+	at com.fasterxml.jackson.databind.deser.DefaultDeserializationContext.readRootValue(DefaultDeserializationContext.java:322)
+	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4675)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3630)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3598)
+	at io.javalin.plugin.json.JavalinJackson.fromJsonString(JavalinJackson.kt:37)
+	at io.javalin.http.Context.bodyAsClass(Context.kt:114)
+	at com.revature.controller.Controller.lambda$10(Controller.java:171)
+	at io.javalin.core.security.SecurityUtil.noopAccessManager(SecurityUtil.kt:20)
+	at io.javalin.http.JavalinServlet.addHandler$lambda-5(JavalinServlet.kt:113)
+	at io.javalin.http.JavalinServlet$service$tryBeforeAndEndpointHandlers$1.invoke(JavalinServlet.kt:44)
+	at io.javalin.http.JavalinServlet$service$tryBeforeAndEndpointHandlers$1.invoke(JavalinServlet.kt:39)
+	at io.javalin.http.JavalinServlet.service$tryWithExceptionMapper(JavalinServlet.kt:129)
+	at io.javalin.http.JavalinServlet.service$tryBeforeAndEndpointHandlers(JavalinServlet.kt:39)
+	at io.javalin.http.JavalinServlet.service(JavalinServlet.kt:87)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at io.javalin.jetty.JavalinJettyServlet.service(JavalinJettyServlet.kt:58)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:799)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:550)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1624)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)
+	at io.javalin.jetty.JettyServer$start$wsAndHttpHandler$1.doHandle(JettyServer.kt:52)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:188)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:501)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1594)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:186)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1349)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.StatisticsHandler.handle(StatisticsHandler.java:179)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:127)
+	at org.eclipse.jetty.server.Server.handle(Server.java:516)
+	at org.eclipse.jetty.server.HttpChannel.lambda$handle$1(HttpChannel.java:400)
+	at org.eclipse.jetty.server.HttpChannel.dispatch(HttpChannel.java:645)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:392)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:277)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:311)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.ChannelEndPoint$1.run(ChannelEndPoint.java:104)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:883)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1034)
+	at java.base/java.lang.Thread.run(Thread.java:831)
+30 Nov 2021 - 09:35:37.092 [qtp1750286943-16] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 09:35:56.862 [qtp1750286943-21] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 09:45:28.075 [qtp1750286943-21] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 09:45:28.075 [qtp1750286943-21] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 09:45:28.106 [qtp1750286943-21] INFO  com.revature.controller.Controller - New user created successfully: ERS_user [user_id=7, ers_username=, ers_password=, user_first_name=Marshall, user_last_name=Hobbs, user_email=email@gmail.com, user_role=employee]
+30 Nov 2021 - 09:45:31.696 [qtp1750286943-19] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 09:48:04.302 [qtp1750286943-19] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 09:48:18.533 [qtp1750286943-22] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 10:00:51.369 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+30 Nov 2021 - 10:00:51.379 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @1123ms to org.eclipse.jetty.util.log.Slf4jLog
+30 Nov 2021 - 10:00:51.380 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+30 Nov 2021 - 10:00:51.403 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+30 Nov 2021 - 10:00:51.627 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+30 Nov 2021 - 10:00:51.627 [main] INFO  io.javalin.Javalin - Javalin started in 247ms \o/
+30 Nov 2021 - 10:00:56.953 [qtp917768476-22] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 10:01:02.029 [qtp917768476-18] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 10:01:20.474 [qtp917768476-23] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:01:20.474 [qtp917768476-23] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:01:20.503 [qtp917768476-23] INFO  com.revature.controller.Controller - New user created successfully: ERS_user [user_id=8, ers_username=, ers_password=, user_first_name=Marshall, user_last_name=Hobbs, user_email=email2@gmail.com, user_role=employee]
+30 Nov 2021 - 10:02:56.750 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+30 Nov 2021 - 10:02:56.766 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @1409ms to org.eclipse.jetty.util.log.Slf4jLog
+30 Nov 2021 - 10:02:56.767 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+30 Nov 2021 - 10:02:56.800 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+30 Nov 2021 - 10:02:57.019 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+30 Nov 2021 - 10:02:57.019 [main] INFO  io.javalin.Javalin - Javalin started in 252ms \o/
+30 Nov 2021 - 10:03:01.990 [qtp813823788-17] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:03:01.990 [qtp813823788-17] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:03:02.231 [qtp813823788-17] ERROR com.revature.controller.Controller - Unable to create new user. Email is taken. Please specify a different email
+30 Nov 2021 - 10:03:19.622 [qtp813823788-16] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:03:19.623 [qtp813823788-16] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:03:19.625 [qtp813823788-16] ERROR com.revature.controller.Controller - Unable to create new user. Username is taken. Please specify a different username
+30 Nov 2021 - 10:03:51.547 [qtp813823788-20] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:03:51.547 [qtp813823788-20] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:03:51.554 [qtp813823788-20] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:09.905 [qtp813823788-22] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:09.906 [qtp813823788-22] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:09.908 [qtp813823788-22] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:23.889 [qtp813823788-20] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:23.890 [qtp813823788-20] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:23.891 [qtp813823788-20] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:30.632 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+30 Nov 2021 - 10:04:30.646 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @1100ms to org.eclipse.jetty.util.log.Slf4jLog
+30 Nov 2021 - 10:04:30.647 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+30 Nov 2021 - 10:04:30.675 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+30 Nov 2021 - 10:04:30.869 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+30 Nov 2021 - 10:04:30.870 [main] INFO  io.javalin.Javalin - Javalin started in 223ms \o/
+30 Nov 2021 - 10:04:32.264 [qtp1530295320-23] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:32.265 [qtp1530295320-23] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:32.480 [qtp1530295320-23] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:53.470 [qtp1530295320-16] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:53.470 [qtp1530295320-16] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:53.472 [qtp1530295320-16] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:54.077 [qtp1530295320-18] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:54.077 [qtp1530295320-18] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:54.079 [qtp1530295320-18] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:54.582 [qtp1530295320-22] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:54.582 [qtp1530295320-22] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:54.584 [qtp1530295320-22] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:55.262 [qtp1530295320-18] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:55.262 [qtp1530295320-18] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:55.264 [qtp1530295320-18] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:55.787 [qtp1530295320-22] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:55.788 [qtp1530295320-22] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:55.793 [qtp1530295320-22] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:56.318 [qtp1530295320-18] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:56.319 [qtp1530295320-18] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:56.321 [qtp1530295320-18] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:56.794 [qtp1530295320-22] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:56.795 [qtp1530295320-22] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:56.799 [qtp1530295320-22] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:57.303 [qtp1530295320-18] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:57.303 [qtp1530295320-18] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:57.305 [qtp1530295320-18] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:57.796 [qtp1530295320-22] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:57.797 [qtp1530295320-22] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:57.799 [qtp1530295320-22] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:58.309 [qtp1530295320-18] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:58.309 [qtp1530295320-18] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:58.310 [qtp1530295320-18] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:04:58.797 [qtp1530295320-22] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:04:58.798 [qtp1530295320-22] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:04:58.800 [qtp1530295320-22] ERROR com.revature.controller.Controller - ERROR: relation "ers_users" does not exist
+  Position: 15
+30 Nov 2021 - 10:06:02.673 [qtp1530295320-22] INFO  com.revature.app.Application - POST request received to the /ers_users/ endpoint
+30 Nov 2021 - 10:06:02.673 [qtp1530295320-22] INFO  com.revature.controller.Controller - Create user method called
+30 Nov 2021 - 10:06:02.704 [qtp1530295320-22] INFO  com.revature.controller.Controller - New user created successfully: ERS_user [user_id=1, ers_username=, ers_password=, user_first_name=Marshall, user_last_name=Hobbs, user_email=email@gmail.com, user_role=employee]
+30 Nov 2021 - 10:06:06.204 [qtp1530295320-23] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 10:09:20.858 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+30 Nov 2021 - 10:09:20.867 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @954ms to org.eclipse.jetty.util.log.Slf4jLog
+30 Nov 2021 - 10:09:20.869 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+30 Nov 2021 - 10:09:20.888 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+30 Nov 2021 - 10:09:21.048 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+30 Nov 2021 - 10:09:21.049 [main] INFO  io.javalin.Javalin - Javalin started in 181ms \o/
+30 Nov 2021 - 10:09:26.013 [qtp1530295320-19] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 10:10:59.661 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+30 Nov 2021 - 10:10:59.670 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @1144ms to org.eclipse.jetty.util.log.Slf4jLog
+30 Nov 2021 - 10:10:59.671 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+30 Nov 2021 - 10:10:59.690 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+30 Nov 2021 - 10:10:59.879 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+30 Nov 2021 - 10:10:59.880 [main] INFO  io.javalin.Javalin - Javalin started in 210ms \o/
+30 Nov 2021 - 10:11:01.249 [qtp1530295320-19] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 10:11:01.456 [qtp1530295320-19] INFO  com.revature.service.Service - got here
+30 Nov 2021 - 10:11:39.517 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+30 Nov 2021 - 10:11:39.530 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @1277ms to org.eclipse.jetty.util.log.Slf4jLog
+30 Nov 2021 - 10:11:39.531 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+30 Nov 2021 - 10:11:39.550 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+30 Nov 2021 - 10:11:39.718 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+30 Nov 2021 - 10:11:39.718 [main] INFO  io.javalin.Javalin - Javalin started in 188ms \o/
+30 Nov 2021 - 10:11:41.039 [qtp919446210-22] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 10:11:41.280 [qtp919446210-22] INFO  com.revature.service.Service - f6ca968fe4b340bdbaef14d0803986ad2ae611fc651c5e00094db5a9f08251f6
+30 Nov 2021 - 10:11:41.280 [qtp919446210-22] INFO  com.revature.service.Service - 00d83cb88ced436dd720a636a0604a9393162095272ef25046260076b6df1d96
+30 Nov 2021 - 10:20:43.024 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+30 Nov 2021 - 10:20:43.038 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @1440ms to org.eclipse.jetty.util.log.Slf4jLog
+30 Nov 2021 - 10:20:43.040 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+30 Nov 2021 - 10:20:43.077 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+30 Nov 2021 - 10:20:43.327 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+30 Nov 2021 - 10:20:43.327 [main] INFO  io.javalin.Javalin - Javalin started in 288ms \o/
+30 Nov 2021 - 10:20:48.031 [qtp1574749319-17] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 10:20:48.507 [qtp1574749319-17] INFO  com.revature.service.Service - f6ca968fe4b340bdbaef14d0803986ad2ae611fc651c5e00094db5a9f08251f6
+30 Nov 2021 - 10:20:48.508 [qtp1574749319-17] INFO  com.revature.service.Service - 00d83cb88ced436dd720a636a0604a9393162095272ef25046260076b6df1d96
+30 Nov 2021 - 10:20:48.508 [qtp1574749319-17] INFO  com.revature.service.Service - null
+30 Nov 2021 - 10:21:20.598 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+30 Nov 2021 - 10:21:20.616 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @1698ms to org.eclipse.jetty.util.log.Slf4jLog
+30 Nov 2021 - 10:21:20.617 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+30 Nov 2021 - 10:21:20.641 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+30 Nov 2021 - 10:21:20.871 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+30 Nov 2021 - 10:21:20.872 [main] INFO  io.javalin.Javalin - Javalin started in 256ms \o/
+30 Nov 2021 - 10:21:21.992 [qtp199657303-20] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+30 Nov 2021 - 10:21:22.344 [qtp199657303-20] INFO  com.revature.service.Service - 00d83cb88ced436dd720a636a0604a9393162095272ef25046260076b6df1d96
+30 Nov 2021 - 10:21:22.344 [qtp199657303-20] INFO  com.revature.service.Service - 00d83cb88ced436dd720a636a0604a9393162095272ef25046260076b6df1d96
+30 Nov 2021 - 10:21:22.344 [qtp199657303-20] INFO  com.revature.service.Service - email@gmail.com

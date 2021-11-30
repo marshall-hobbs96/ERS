@@ -481,22 +481,55 @@ public class ServiceTest {
 	
 	/*********************************************END DELETE USER TESTS*****************************************/
 	
-	/*********************************************BEGIN LOGIN TESTS*********************************************/
+	/*********************************************BEGIN LOGIN TESTS
+	 * @throws SQLException 
+	 * @throws NoSuchAlgorithmException *********************************************/
 
 
 	
 	
-	  @Test public void loginPositive() {
+	  @Test public void loginPositive() throws SQLException, NoSuchAlgorithmException {
 	  
-	  
+		  ERS_user user = new ERS_user("username", "password", "firstname", "lastname", "email@gmail.com", "employee");
+		  ERS_user expectedUser = new ERS_user("", "", "firstname", "lastname", "email@gmail.com", "employee");
+		  
+		  when(mockDao.getUserByUsername("16f78a7d6317f102bbd95fc9a4f3ff2e3249287690b8bdad6b7810f82b34ace3")).thenReturn(user);
+
 	 
+		  assertEquals(expectedUser, sut.getUserByUsernamePassword(user));
+		  
 	 }
 	  
-	  @Test public void loginNegativeUsernameDoesntMatch() { //test method stub }
+	  @Test public void loginNegativeUsernameDoesntMatch() throws SQLException { //test method stub }
 		
+		  ERS_user user = new ERS_user("username", "password", "firstname", "lastname", "email@gmail.com", "employee");
+		  
+		  when(mockDao.getUserByUsername("16f78a7d6317f102bbd95fc9a4f3ff2e3249287690b8bdad6b7810f82b34ace3")).thenThrow(new SQLException("Invalid login credentials")); 
+		  
+		  SQLException e = assertThrows(SQLException.class, () -> {
+			  
+			 sut.getUserByUsernamePassword(user); 
+			  
+		  });
+		  
+		  assertEquals("Invalid login credentials", e.getMessage());
+		  
 	  }
 	  
-	  @Test public void loginNegativePasswordDoesntMatch() { //test method stub }
+	  @Test public void loginNegativePasswordDoesntMatch() throws SQLException { //test method stub }
+		  
+		  
+		  ERS_user user = new ERS_user("username", "password", "firstname", "lastname", "email@gmail.com", "employee");
+		  
+		  when(mockDao.getUserByUsername("16f78a7d6317f102bbd95fc9a4f3ff2e3249287690b8bdad6b7810f82b34ace3")).thenThrow(new SQLException("Invalid login credentials")); 
+		  
+		  SQLException e = assertThrows(SQLException.class, () -> {
+			  
+			 sut.getUserByUsernamePassword(user); 
+			  
+		  });
+		  
+		  assertEquals("Invalid login credentials", e.getMessage());
 		  
 	  }
 	 
@@ -603,10 +636,11 @@ public class ServiceTest {
 	
 	/******************************************************END UPDATE USER TESTS***********************************/
 	
-	/*****************************************************BEGIN GET ALL USERS TESTS*********************************/
+	/*****************************************************BEGIN GET ALL USERS TESTS
+	 * @throws SQLException *********************************/
 	
 	@Test
-	public void getAllUsersPositive() {
+	public void getAllUsersPositive() throws SQLException {
 		
 		ERS_user user1 = new ERS_user();
 		ERS_user user2 = new ERS_user();
