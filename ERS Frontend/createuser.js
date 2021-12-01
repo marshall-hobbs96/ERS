@@ -127,7 +127,8 @@ submitButton.addEventListener('click', async () => {    //Just grabbing all the 
         let res = await fetch(`http://${url}:8081/ers_users`, { //Sending a post request with data of new user we want to create
 
             method: 'POST',
-            body: JSON.stringify(userToAdd)
+            body: JSON.stringify(userToAdd),
+            crednetials: 'include'
     
         });
 

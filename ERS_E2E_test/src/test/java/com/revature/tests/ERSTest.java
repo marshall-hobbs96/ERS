@@ -16,6 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.revature.model.CreateUserPage;
 import com.revature.model.LoginPage;
+import com.revature.model.WelcomePage;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -270,10 +271,22 @@ public class ERSTest {
 	    
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Given("I am at the welcome page")
 	public void i_am_at_the_welcome_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		System.setProperty("webdriver.chrome.driver", "C:/WebDrivers/chromedriver.exe");
+		driver = new ChromeDriver();
+		
+	    driver.get(WelcomePage.URL);
 	}
 
 	@When("I I click the create new request button")
@@ -510,41 +523,49 @@ public class ERSTest {
 	    throw new io.cucumber.java.PendingException();
 	}
 
-
-	@When("I enter a valid username")
-	public void i_enter_a_valid_username() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	
+	//********************************Employee login steps
+	
+	@When("I enter in a valid username")
+	public void i_enter_in_a_valid_username() {
+	    
+		WebElement usernameField = driver.findElement(By.xpath(LoginPage.usernameField));
+		usernameField.sendKeys("username");
+		
 	}
-
+	
 	@When("I enter in a valid password")
 	public void i_enter_in_a_valid_password() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    
+		WebElement passwordField = driver.findElement(By.xpath(LoginPage.passwordField));
+		passwordField.sendKeys("password");
+		
+	}
+	
+	@When("I click the login button")
+	public void i_click_the_login_button() {
+	    WebElement loginButton = driver.findElement(By.xpath(LoginPage.loginButton));
+	    loginButton.click();
 	}
 
 	@Then("I should be taken to the employee welcome page and be able to see my first and last name displayed in the webpage")
 	public void i_should_be_taken_to_the_employee_welcome_page_and_be_able_to_see_my_first_and_last_name_displayed_in_the_webpage() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    
+		assertEquals(WelcomePage.URL, driver.getCurrentUrl());
+		
 	}
 
 	@Then("I should see a message telling me to please enter in a username")
 	public void i_should_see_a_message_telling_me_to_please_enter_in_a_username() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    WebElement usernameHelper = driver.findElement(By.xpath(LoginPage.usernameHelper));
+	    assertEquals("Please enter a username", usernameHelper.getText());
 	}
 
-	@When("I enter in a valid username")
-	public void i_enter_in_a_valid_username() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
 
 	@Then("I should see a message telling me to please enter in a password")
 	public void i_should_see_a_message_telling_me_to_please_enter_in_a_password() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    WebElement passwordHelper = driver.findElement(By.xpath(LoginPage.passwordHelper));
+	    assertEquals("Please enter a password", passwordHelper.getText());
 	}
 
 	@When("I enter in an invalid username")
@@ -565,11 +586,20 @@ public class ERSTest {
 	    throw new io.cucumber.java.PendingException();
 	}
 
+	
+	//*************************************Employee login steps
+	
+	
 	@Then("I should be taken to the manager welcome page and be able to see my first and last name displayed in the webpage")
 	public void i_should_be_taken_to_the_manager_welcome_page_and_be_able_to_see_my_first_and_last_name_displayed_in_the_webpage() {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new io.cucumber.java.PendingException();
 	}
+	
+	
+	
+	//************************************************Manager login step
+	// **********************************************Manager requests
 	
 	@Given("I am at the welcome page while logged in as a manager")
 	public void i_am_at_the_welcome_page_while_logged_in_as_a_manager() {

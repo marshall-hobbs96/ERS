@@ -503,3 +503,37 @@ com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'password': wa
 30 Nov 2021 - 10:21:22.344 [qtp199657303-20] INFO  com.revature.service.Service - 00d83cb88ced436dd720a636a0604a9393162095272ef25046260076b6df1d96
 30 Nov 2021 - 10:21:22.344 [qtp199657303-20] INFO  com.revature.service.Service - 00d83cb88ced436dd720a636a0604a9393162095272ef25046260076b6df1d96
 30 Nov 2021 - 10:21:22.344 [qtp199657303-20] INFO  com.revature.service.Service - email@gmail.com
+01 Dec 2021 - 13:13:30.891 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+01 Dec 2021 - 13:13:30.914 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @2048ms to org.eclipse.jetty.util.log.Slf4jLog
+01 Dec 2021 - 13:13:30.916 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+01 Dec 2021 - 13:13:30.956 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+01 Dec 2021 - 13:13:31.326 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+01 Dec 2021 - 13:13:31.326 [main] INFO  io.javalin.Javalin - Javalin started in 411ms \o/
+01 Dec 2021 - 13:15:25.744 [qtp1126185196-21] INFO  com.revature.app.Application - POST request received to the /ers_users endpoint
+01 Dec 2021 - 13:15:25.744 [qtp1126185196-21] INFO  com.revature.controller.Controller - Create user method called
+01 Dec 2021 - 13:15:26.066 [qtp1126185196-21] ERROR com.revature.controller.Controller - Cannot create user. First name cannot be null or empty. Please specify a first name
+01 Dec 2021 - 13:16:07.662 [qtp1126185196-16] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+01 Dec 2021 - 13:18:12.181 [main] INFO  io.javalin.Javalin - 
+       __                      __ _            __ __
+      / /____ _ _   __ ____ _ / /(_)____      / // /
+ __  / // __ `/| | / // __ `// // // __ \    / // /_
+/ /_/ // /_/ / | |/ // /_/ // // // / / /   /__  __/
+\____/ \__,_/  |___/ \__,_//_//_//_/ /_/      /_/
+
+          https://javalin.io/documentation
+
+01 Dec 2021 - 13:18:12.266 [main] INFO  org.eclipse.jetty.util.log - Logging initialized @3907ms to org.eclipse.jetty.util.log.Slf4jLog
+01 Dec 2021 - 13:18:12.282 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+01 Dec 2021 - 13:18:12.422 [main] INFO  io.javalin.Javalin - You are running Javalin 4.1.1 (released October 10, 2021).
+01 Dec 2021 - 13:18:12.772 [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+01 Dec 2021 - 13:18:12.772 [main] INFO  io.javalin.Javalin - Javalin started in 504ms \o/
+01 Dec 2021 - 13:18:23.043 [qtp1530295320-21] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint
+01 Dec 2021 - 13:20:03.975 [qtp1530295320-21] INFO  com.revature.app.Application - POST request received to the /ers_users/login endpoint

@@ -237,10 +237,10 @@ public class Service {
 			
 		}
 		
-		user.setErs_username("");
-		user.setErs_password("");
+		actualUser.setErs_username("");
+		actualUser.setErs_password("");
 		
-		return user; //method stub
+		return actualUser; //method stub
 		
 	}
 	

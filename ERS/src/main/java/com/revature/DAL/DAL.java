@@ -300,6 +300,9 @@ public class DAL {
 		user.setErs_username(resultSet.getString("ers_username"));
 		user.setErs_password(resultSet.getString("ers_password"));
 		user.setUser_email(resultSet.getString("user_email"));
+		user.setUser_first_name(resultSet.getString("user_first_name"));
+		user.setUser_last_name(resultSet.getString("user_last_name"));
+		user.setUser_id(resultSet.getInt("user_id"));
 		
 		return user;
 		
