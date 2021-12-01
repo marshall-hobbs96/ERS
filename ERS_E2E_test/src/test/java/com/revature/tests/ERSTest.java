@@ -570,14 +570,16 @@ public class ERSTest {
 
 	@When("I enter in an invalid username")
 	public void i_enter_in_an_invalid_username() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    WebElement usernameField = driver.findElement(By.xpath(LoginPage.usernameField));
+	    usernameField.sendKeys(" asdf  asdf hg aergads fgadfg fc"); //yea not valid
 	}
 
 	@When("I enter in an invalid password")
 	public void i_enter_in_an_invalid_password() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    
+		WebElement passwordField = driver.findElement(By.xpath(LoginPage.passwordField));
+		passwordField.sendKeys("I mean, hopefully this is an invalid password."); //Really passwords can be anything, but hopefully noone would use this
+		
 	}
 
 	@Then("I should see a message telling me I have an invalid username\\/password")

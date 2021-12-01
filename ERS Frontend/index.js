@@ -4,7 +4,8 @@ let passwordField = document.evaluate("//body/nav[1]/div[4]/div[1]/div[1]/div[1]
 let usernameHelp = document.evaluate("//body/nav[1]/div[4]/div[1]/div[1]/div[1]/div[1]/p[2]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 let passwordHelp = document.evaluate("//body/nav[1]/div[4]/div[1]/div[1]/div[1]/div[2]/p[2]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 
-let url = 'localhost';
+//let url = 'localhost';
+let url = "ec2-18-117-174-173.us-east-2.compute.amazonaws.com";
 
 loginButton.addEventListener('click', submitLogin);
 
