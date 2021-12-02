@@ -3,15 +3,19 @@ package com.revature.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tika.Tika;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.revature.model.ERS_reimbursement;
 import com.revature.model.ERS_user;
 import com.revature.service.Service;
 
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
+import io.javalin.http.UploadedFile;
 
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -191,7 +195,33 @@ public class Controller {
 	
 	public Handler createRequest = (ctx) -> {
 		
-		//method stub
+		String param = ctx.pathParam("user_id");
+		int user_id = Integer.parseInt(param);
+		
+		ERS_reimbursement reimbursement = ctx.bodyAsClass(ERS_reimbursement.class);
+		UploadedFile file = ctx.uploadedFile("reimb_receipt");
+		InputStream content = file.getContent();
+		reimbursement.setReimb_author(user_id);
+		
+		Tika tika = new Tika();
+		
+		String mimeType = tika.detect(content);
+		
+		
+		try {
+			
+			reimbursement = service.createRequest(reimbursement, content);
+			ctx.json("Request successfully created");
+			ctx.status(200);
+			
+		}
+		
+		catch(Exception e) {
+			
+			
+			
+		}
+		
 		
 	};
 	
@@ -276,7 +306,7 @@ public class Controller {
 		app.get("/ers_users/{user_id}", getUser);
 		//app.get("/ers_users", getSelf);
 		//ers_reimbursements endpoints
-		//app.post("/ers_reimbursements/{user_id}", createRequest);
+		app.post("/ers_reimbursements/{user_id}", createRequest);
 		//app.delete("/ers_users/{user_id}", deleteRequest);
 		//app.patch("ers_reimbursements/{user_id}", updateRequest);
 		//app.get("ers_users/{user_id}", getUserRequests);

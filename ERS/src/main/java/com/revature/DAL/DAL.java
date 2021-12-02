@@ -1,11 +1,13 @@
 package com.revature.DAL;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import org.postgresql.Driver;
@@ -192,9 +194,40 @@ public class DAL {
 		
 	}
 	
-	public ERS_reimbursement createRequest(ERS_reimbursement newReimbursement) {
+	public ERS_reimbursement createRequest(ERS_reimbursement newReimbursement, InputStream content) throws SQLException {
 		
-		return new ERS_reimbursement(); //method stub 
+		String sql = "INSERT INTO ers_reimbursement (reimb_amount, reimb_submitted, reimb_status, reimb_type, reimb_description, reimb_receipt, reimb_author) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?);";
+		
+		PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		statement.setDouble(1, newReimbursement.getReimb_amount());
+		statement.setTimestamp(2, Timestamp.valueOf(newReimbursement.getReimb_submitted()));
+		statement.setString(3, newReimbursement.getReimb_status());
+		statement.setString(4, newReimbursement.getReimb_type());
+		statement.setString(5, newReimbursement.getReimb_description());
+		statement.setBinaryStream(6, content);
+		statement.setInt(7, newReimbursement.getReimb_author());
+		
+		int recordsUpdated = statement.executeUpdate();
+		
+		if(recordsUpdated != 1) {
+			
+			throw new SQLException("Creating new request unsuccessful");
+			
+		}
+		
+		ResultSet resultSet = statement.getGeneratedKeys();
+		resultSet.next();
+		
+		newReimbursement.setReimb_id(resultSet.getInt("reimb_id"));
+		
+		return newReimbursement;
+		
+		
+		
+		
+
 		
 	}
 	

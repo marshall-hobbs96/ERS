@@ -1,10 +1,12 @@
 package com.revature.service;
 
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -245,9 +247,29 @@ public class Service {
 	}
 	
 	
-	public ERS_reimbursement createRequest(ERS_reimbursement newReimbursement) {
+	public ERS_reimbursement createRequest(ERS_reimbursement newReimbursement, InputStream content) throws SQLException  {
 		
-		return new ERS_reimbursement(); //Method stub
+		dao.getUser(newReimbursement.getReimb_author()); //checks to see if author actually exists as a user in our database
+		
+		if(newReimbursement.getReimb_amount() <= 0) {
+			
+			throw new IllegalArgumentException("Unable to create request. Reimbursement amount cannot equal to or less than 0. Please enter a valid reimbursement amount");
+			
+		} else if((newReimbursement.getReimb_type().compareTo("LODGING") != 0) && (newReimbursement.getReimb_type().compareTo("TRAVEL") != 0) && (newReimbursement.getReimb_type().compareTo("FOOD") != 0) && (newReimbursement.getReimb_type().compareTo("OTHER") != 0)) {
+			
+			throw new IllegalArgumentException("Unable to create request. Reimbursement type is not valid. Must be 'LODGING', 'TRAVEL', 'FOOD' or 'OTHER'");
+			
+		} else if(newReimbursement.getReimb_description().length() > 255) {
+			
+			throw new IllegalArgumentException("Unable to create request. Reimbursement description is too long[255]");
+			
+		}
+		
+		newReimbursement.setReimb_submitted(LocalDateTime.now());
+		newReimbursement.setReimb_status("PENDING");
+		
+		return dao.createRequest(newReimbursement, content);	
+
 		
 	}
 	

@@ -706,7 +706,7 @@ public class ServiceTest {
 	@Test
 	public void createRequestPositive() throws SQLException {
 		
-		ERS_reimbursement request = new ERS_reimbursement(50.2, "travel", "Some description", null, 1);
+		ERS_reimbursement request = new ERS_reimbursement(50.2, "TRAVEL", "Some description", null, 1);
 		ERS_user user = new ERS_user();
 		user.setUser_id(1);
 		
@@ -750,7 +750,7 @@ public class ServiceTest {
 			
 		});
 		
-		assertEquals("Unable to create request. User does not exist", e.getMessage());
+		assertEquals("Unable to find user", e.getMessage());
 		
 	}
 	
@@ -769,7 +769,25 @@ public class ServiceTest {
 			
 		});
 		
-		assertEquals("Unable to create request. Type is invalid. Please input a valid type", e.getMessage());
+		assertEquals("Unable to create request. Reimbursement type is not valid. Must be 'LODGING', 'TRAVEL', 'FOOD' or 'OTHER'", e.getMessage());
+		
+	}
+	
+	@Test public void createRequestNegativeDescriptionLongerThan255Chars() throws SQLException {
+		
+		ERS_reimbursement request = new ERS_reimbursement(30.3, "FOOD", tooLongString, null, 1);
+		ERS_user user = new ERS_user();
+		user.setUser_id(1);
+		
+		when(mockDao.getUser(eq(1))).thenReturn(user);
+		
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+			
+			sut.createRequest(request);
+			
+		});
+		
+		assertEquals("Unable to create request. Reimbursement description is too long[255]", e.getMessage());
 		
 	}
 	

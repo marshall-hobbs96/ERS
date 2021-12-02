@@ -2,6 +2,7 @@ package com.revature.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.Duration;
 import java.util.Random;
 
 import org.junit.Before;
@@ -13,6 +14,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.revature.model.CreateUserPage;
 import com.revature.model.LoginPage;
@@ -147,8 +150,10 @@ public class ERSTest {
 	@Then("I should see a message telling me a new user has been created")
 	public void i_should_see_a_message_telling_me_a_new_user_has_been_created() {
 		//Message that should display in submitButton helper: User successfully created
-		
+		WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(5));
 		WebElement submitHelper = driver.findElement(By.xpath(CreateUserPage.submitHelper));
+		wdw.until(ExpectedConditions.textToBePresentInElement(submitHelper, "User successfully created"));
+		
 		assertEquals("User successfully created", submitHelper.getText());
 		driver.close();
 		driver.quit();
