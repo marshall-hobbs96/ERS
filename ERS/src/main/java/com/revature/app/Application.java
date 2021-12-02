@@ -19,7 +19,7 @@ public class Application {
 		
 		Javalin app = Javalin.create((config) -> {
 			
-			config.enableCorsForOrigin("http://localhost:5500", "http://127.0.0.1:5500");	//will need to add S3 when deploying to AWS
+			config.enableCorsForOrigin("http://localhost:5500", "http://127.0.0.1:5500", "http://revature-project-1.s3-website.us-east-2.amazonaws.com");	//will need to add S3 when deploying to AWS
 			
 		});
 		
