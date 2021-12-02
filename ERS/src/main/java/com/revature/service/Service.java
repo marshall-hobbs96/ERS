@@ -247,7 +247,7 @@ public class Service {
 	}
 	
 	
-	public ERS_reimbursement createRequest(ERS_reimbursement newReimbursement, InputStream content) throws SQLException  {
+	public ERS_reimbursement createRequest(ERS_reimbursement newReimbursement, InputStream content, ERS_user currentUser) throws SQLException, IllegalArgumentException  {
 		
 		dao.getUser(newReimbursement.getReimb_author()); //checks to see if author actually exists as a user in our database
 		
@@ -262,6 +262,10 @@ public class Service {
 		} else if(newReimbursement.getReimb_description().length() > 255) {
 			
 			throw new IllegalArgumentException("Unable to create request. Reimbursement description is too long[255]");
+			
+		} else if(currentUser.getUser_id() == 0) {
+			
+			throw new IllegalArgumentException("Unable to create request. Must be logged in to create request");
 			
 		}
 		
@@ -280,9 +284,24 @@ public class Service {
 		
 	}
 	
-	public ERS_reimbursement updateRequest(ERS_reimbursement updatedReimbursement) {
+	public ERS_reimbursement updateRequest(ERS_reimbursement updatedReimbursement, ERS_user currentUser) throws IllegalArgumentException, SQLException {
 		
-		return new ERS_reimbursement(); //method stub
+		if(currentUser.getUser_role().compareTo("manager") != 0) {
+			
+			throw new IllegalArgumentException("Unable to update request. Must be logged in as a manager to update requests");
+			
+		} else if((updatedReimbursement.getReimb_status().compareTo("approved") != 0) && (updatedReimbursement.getReimb_status().compareTo("denied") != 0)) {
+			
+			throw new IllegalArgumentException("Unable to update request. Status not valid. Valid status is 'approved' and 'denied'");
+			
+		}
+		
+		dao.getRequest(updatedReimbursement.getReimb_id());
+		
+		dao.updateRequest(updatedReimbursement);
+		
+		return dao.getRequest(updatedReimbursement.getReimb_id());
+		
 		
 	}
 	

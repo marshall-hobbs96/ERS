@@ -201,16 +201,13 @@ public class Controller {
 		ERS_reimbursement reimbursement = ctx.bodyAsClass(ERS_reimbursement.class);
 		UploadedFile file = ctx.uploadedFile("reimb_receipt");
 		InputStream content = file.getContent();
-		reimbursement.setReimb_author(user_id);
+		reimbursement.setReimb_author(user_id);		
 		
-		Tika tika = new Tika();
-		
-		String mimeType = tika.detect(content);
-		
+		ERS_user currentUser = (ERS_user) ctx.req.getSession().getAttribute("currentuser");
 		
 		try {
 			
-			reimbursement = service.createRequest(reimbursement, content);
+			reimbursement = service.createRequest(reimbursement, content, currentUser);
 			ctx.json("Request successfully created");
 			ctx.status(200);
 			
@@ -218,7 +215,8 @@ public class Controller {
 		
 		catch(Exception e) {
 			
-			
+			ctx.status(400);
+			ctx.json(e);
 			
 		}
 		
@@ -233,7 +231,29 @@ public class Controller {
 	
 	public Handler updateRequest = (ctx) -> {
 		
-		//method stub
+		String param = ctx.pathParam("reimb_id");
+		int reimb_id = Integer.parseInt(param);
+		
+		ERS_reimbursement reimb = ctx.bodyAsClass(ERS_reimbursement.class);	//I only want to update the status, but ill load the whole class anyways
+		reimb.setReimb_id(reimb_id);
+		HttpSession session = ctx.req.getSession();
+		ERS_user currentUser = (ERS_user) session.getAttribute("currentuser");
+		
+		
+		try {
+			
+			reimb = service.updateRequest(reimb, currentUser);
+			ctx.status(200);
+			ctx.json(reimb);
+			
+		}
+		
+		catch(Exception e) {
+			
+			ctx.status(400);
+			ctx.json(e);
+			
+		}
 		
 	};
 	
@@ -308,7 +328,7 @@ public class Controller {
 		//ers_reimbursements endpoints
 		app.post("/ers_reimbursements/{user_id}", createRequest);
 		//app.delete("/ers_users/{user_id}", deleteRequest);
-		//app.patch("ers_reimbursements/{user_id}", updateRequest);
+		app.post("ers_reimbursements/{reimb_id}", updateRequest);
 		//app.get("ers_users/{user_id}", getUserRequests);
 		//app.get("/ers_reimbursements", getAllRequests);
 		

@@ -251,9 +251,27 @@ public class DAL {
 		
 	}
 	
-	public ERS_reimbursement updateRequest(ERS_reimbursement updatedReimbursement) {
+	public ERS_reimbursement updateRequest(ERS_reimbursement updatedReimbursement) throws SQLException {
 		
-		return new ERS_reimbursement(); //method stub 
+		String sql = "UPDATE ers_reimbursement SET reimb_status = ? WHERE reimb_id = ?;";
+		
+		PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		statement.setString(1, updatedReimbursement.getReimb_status());
+		statement.setInt(2, updatedReimbursement.getReimb_id());
+		
+		int recordsUpdated = statement.executeUpdate();
+		
+		if(recordsUpdated != 1) {
+			
+			throw new SQLException("Unable to update request");
+			
+		}
+		
+		
+		
+		
+		return updatedReimbursement; //method stub 
 		
 	}
 	
