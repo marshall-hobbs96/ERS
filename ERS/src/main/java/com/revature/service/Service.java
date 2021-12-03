@@ -340,7 +340,12 @@ public class Service {
 			
 			throw new IllegalArgumentException("Unable to get reimbursements. User role must be manager");
 			
-		}
+		} else if((status.compareTo("PENDING") != 0) && (status.compareTo("APPROVED") != 0) && (status.compareTo("DENIED") != 0)) {
+			
+			throw new IllegalArgumentException("Unable to get requests. Invalid status. Please search by a valid status");
+			
+		} 
+			
 		
 		ArrayList<ERS_reimbursement> reimbList = dao.getAllRequests(status);
 		

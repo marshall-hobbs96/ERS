@@ -150,7 +150,6 @@ submitButton.addEventListener('click', async () => {    //Just grabbing all the 
     }
     catch(err) {
 
-        //let data = await err.text();
         console.log(err);
         submitHelper.textContent = err;
 
