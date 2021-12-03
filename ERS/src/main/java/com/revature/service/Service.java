@@ -311,28 +311,45 @@ public class Service {
 		
 	}
 	
-	public ArrayList<ERS_reimbursement> getAllRequests() {
+	public ArrayList<ERS_reimbursement> getAllRequests(ERS_user currentUser) throws SQLException {
 		
-		return new ArrayList<ERS_reimbursement>(); //method stub
+		ArrayList<ERS_reimbursement> reimbursementsList = new ArrayList<>();
+		
+		if(currentUser.getUser_role().compareTo("employee") == 0) {	//get all reimbursements for just this employee
+			
+			reimbursementsList = dao.getAllRequests(currentUser.getUser_id());
+			
+		} else if(currentUser.getUser_role().compareTo("manager") == 0) {	//Get all reimbursements
+			
+			reimbursementsList = dao.getAllRequests();
+			
+		} else {	//role not recognized, throw exception
+			
+			throw new IllegalArgumentException("Cannot retrieve requests. User role is not valid");
+			
+		}
+		
+		
+		return reimbursementsList; //method stub
 		
 	}
 	
-	public ArrayList<ERS_reimbursement> getAllRequests(String status) {
+	public ArrayList<ERS_reimbursement> getAllRequests(String status, ERS_user currentUser) throws SQLException {
 		
-		return new ArrayList<ERS_reimbursement>(); //method stub
+		if(currentUser.getUser_role().compareTo("manager") != 0) {
+			
+			throw new IllegalArgumentException("Unable to get reimbursements. User role must be manager");
+			
+		}
+		
+		ArrayList<ERS_reimbursement> reimbList = dao.getAllRequests(status);
+		
+		return reimbList; //method stub
 		
 	}	
 	
-	public ArrayList<ERS_reimbursement> getAllRequests(String status, int user_id) {
-		
-		return new ArrayList<ERS_reimbursement>(); //method stub
-		
-	}
+
 	
-	public ArrayList<ERS_reimbursement> getAllRequests(int user_id) {
-		
-		return new ArrayList<ERS_reimbursement>();
-		
-	}
+
 	
 }

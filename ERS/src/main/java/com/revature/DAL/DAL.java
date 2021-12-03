@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import org.postgresql.Driver;
 
 import com.revature.model.ERS_reimbursement;
@@ -275,15 +277,68 @@ public class DAL {
 		
 	}
 	
-	public ArrayList<ERS_reimbursement> getAllRequests() {
+	public ArrayList<ERS_reimbursement> getAllRequests() throws SQLException {
 		
-		return new ArrayList<ERS_reimbursement>();//method stub 
+		ArrayList<ERS_reimbursement> reimbursementsList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM ers_reimbursement";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		ResultSet rs = statement.executeQuery();
+		
+		while(rs.next()) {
+			
+			ERS_reimbursement reimb = new ERS_reimbursement();
+			
+			reimb.setReimb_id(rs.getInt("reimb_id"));
+			reimb.setReimb_amount(rs.getDouble("reimb_amount"));
+			reimb.setReimb_submitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
+			reimb.setReimb_status(rs.getString("reimb_status"));
+			reimb.setReimb_type(rs.getString("reimb_type"));
+			reimb.setReimb_description(rs.getString("reimb_description"));
+			reimb.setReimb_author(rs.getInt("reimb_author"));
+			reimb.setReimb_receipt(new SerialBlob(rs.getBlob("reimb_receipt")));
+			
+			reimbursementsList.add(reimb);
+			
+		}
+		
+		return reimbursementsList;//method stub 
 		
 	}
 	
-	public ArrayList<ERS_reimbursement> getAllRequests(String status) {
+	public ArrayList<ERS_reimbursement> getAllRequests(String status) throws SQLException {
 		
-		return new ArrayList<ERS_reimbursement>(); ///method stub
+		ArrayList<ERS_reimbursement> reimbList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM ers_reimbursement WHERE reimb_status = ?;";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		statement.setString(1, status);
+		
+		ResultSet rs = statement.executeQuery();
+		
+		while(rs.next()) {
+			
+			
+			ERS_reimbursement reimb = new ERS_reimbursement();
+			
+			reimb.setReimb_id(rs.getInt("reimb_id"));
+			reimb.setReimb_amount(rs.getDouble("reimb_amount"));
+			reimb.setReimb_submitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
+			reimb.setReimb_status(rs.getString("reimb_status"));
+			reimb.setReimb_type(rs.getString("reimb_type"));
+			reimb.setReimb_description(rs.getString("reimb_description"));
+			reimb.setReimb_author(rs.getInt("reimb_author"));
+			reimb.setReimb_receipt(new SerialBlob(rs.getBlob("reimb_receipt")));
+			
+			reimbList.add(reimb);
+			
+		}
+		
+		return reimbList; 
 		
 	}
 	

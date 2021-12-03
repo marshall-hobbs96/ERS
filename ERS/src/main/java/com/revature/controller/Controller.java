@@ -265,7 +265,46 @@ public class Controller {
 	
 	public Handler getAllRequests = (ctx) -> {
 		
-		//method stub
+		ERS_user currentUser = (ERS_user) ctx.req.getSession().getAttribute("currentuser");
+		
+		try {
+			
+			ArrayList<ERS_reimbursement> reimbList = service.getAllRequests(currentUser);
+			ctx.json(reimbList);
+			ctx.status(200);
+			
+			
+		}
+		
+		catch(Exception e) {
+			
+			ctx.json(e);
+			ctx.status(400);
+			
+		}
+		
+	};
+	
+	public Handler getAllRequestsByStatus = (ctx) -> {
+		
+		ERS_user currentUser = (ERS_user) ctx.req.getSession().getAttribute("currentuser");
+		String status = ctx.pathParam("status");
+	
+		
+		try {
+			
+			ArrayList<ERS_reimbursement> reimbList = service.getAllRequests(status, currentUser);
+			ctx.json(reimbList);
+			ctx.json(200);
+			
+		}
+		
+		catch(Exception e) {
+			
+			ctx.json(e);
+			ctx.status(400);
+			
+		}
 		
 	};
 	
@@ -330,7 +369,9 @@ public class Controller {
 		//app.delete("/ers_users/{user_id}", deleteRequest);
 		app.post("ers_reimbursements/{reimb_id}", updateRequest);
 		//app.get("ers_users/{user_id}", getUserRequests);
-		//app.get("/ers_reimbursements", getAllRequests);
+		app.get("/ers_reimbursements", getAllRequests);	//has dual functionality for employee and managers
+		app.get("/ers_reimbursements/{status}", getAllRequestsByStatus);	//only for managers. Will probably modify later if I want to expand beyond MVP
+		
 		
 		
 		
