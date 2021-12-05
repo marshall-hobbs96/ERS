@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href = "bulma.css"/>
+</head>
+<body>
+
+    <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="localhost:5500/index.html">
+            <img src="https://merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/meme-boy-gets-paid-4140-c9dfc888677499743410feaf017cfa46@1x.jpg" width="56" height="56">
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div class="navbar-item">
+            <h1 class="title"> Employee Reimbursement System</h1>
+        </div>
+
+        <div class = "navbar-item">
+            <h2 class = "subtitle">Home</h2>
+        </div>
+          <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="dropdown is-hoverable">
+                    <div class="dropdown-trigger">
+                      <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                        <span>Menu</span>
+                        <span class="icon is-small">
+                          <i class="fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                      </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                      <div class="dropdown-content">
+                        <a href="createrequest.html" class="dropdown-item">
+                            New Request
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            Account
+                        </a>
+                      </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class = "block">
+
+    </div>
+
+    <div class= "columns is-mobile">
+
+        <div class = "column is-one-quarter">
+        </div>
+
+        <div class = "column is-half">
+
+            <div class="columns is-multiline is-mobile">
+
+                <div class = "column is-half">
+
+                    <div class="field is-horizontal">
+                        <div class = "field-body">
+                            <div class = "field">
+                                <input class = "input is-small" type = "text" placeholder = "type">
+                                <p class = "help has-text-danger" ></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class = "column is-half">
+                </div>
+
+                <div class = "column is-half">
+
+                    <div class="field is-horizontal">
+                        <div class = "field-body">
+                            <div class = "field">
+                                <input class = "input is-small" type = "text" placeholder = "amount">
+                                <p class = "help has-text-danger"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class = "column is-half">
+                </div>
+
+                <div class = "column is-half">
+
+                    <div class="file has-name">
+                        <label class="file-label">
+                          <input class="file-input" type="file" name="resume">
+                          <span class="file-cta">
+                            <span class="file-label">
+                              Upload Receipt
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                      <p class = "help has-text-danger"></p>
+                      
+
+                </div>
+
+                <div class = "column is-half">
+
+                </div>
+
+                <div class = "column is-half">
+
+                    
+
+                    <div class="field is-horizontal">
+                        <div class = "field-body">
+                            <div class = "field">
+
+                                <textarea class="textarea" placeholder="description"></textarea>
+
+                                <!--<input class = "input is-small" type = "text" placeholder = "receipt placeholder">-->
+                                <p class = "help has-text-danger"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div  class = "column is-half">
+                </div>
+
+                <div class = "column is-half">
+                    <button class = "button">Submit</button>
+                    <p class = "help has-text-success"></p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class = "column is-one-quarter">
+        </div>
+
+    </div>
+    <script src="createrequest.js"></script>
+</body>
+</html>

@@ -201,7 +201,7 @@ public class Controller {
 		ERS_reimbursement reimbursement = ctx.bodyAsClass(ERS_reimbursement.class);
 		UploadedFile file = ctx.uploadedFile("reimb_receipt");
 		InputStream content = file.getContent();
-		reimbursement.setReimb_author(user_id);		
+		//reimbursement.setReimb_author(user_id);		//I dont think i really need this
 		
 		ERS_user currentUser = (ERS_user) ctx.req.getSession().getAttribute("currentuser");
 		
