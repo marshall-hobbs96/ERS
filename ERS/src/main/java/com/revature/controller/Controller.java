@@ -222,7 +222,7 @@ public class Controller {
 			
 			ctx.status(400);
 			logger.info(e.getMessage());
-			ctx.json(e);
+			ctx.json(e.getMessage());
 			
 		}
 		

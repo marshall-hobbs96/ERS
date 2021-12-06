@@ -249,7 +249,6 @@ public class Service {
 	
 	public ERS_reimbursement createRequest(ERS_reimbursement newReimbursement, InputStream content, ERS_user currentUser) throws SQLException, IllegalArgumentException  {
 		
-		dao.getUser(newReimbursement.getReimb_author()); //checks to see if author actually exists as a user in our database
 		
 		if(newReimbursement.getReimb_amount() <= 0) {
 			
@@ -271,6 +270,7 @@ public class Service {
 		
 		newReimbursement.setReimb_submitted(LocalDateTime.now());
 		newReimbursement.setReimb_status("PENDING");
+		newReimbursement.setReimb_author(currentUser.getUser_id());;
 		
 		return dao.createRequest(newReimbursement, content);	
 
