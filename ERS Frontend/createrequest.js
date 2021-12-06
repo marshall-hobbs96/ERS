@@ -93,7 +93,7 @@ async function submitRequest() {
 
     const file = requestReceiptField.files[0];
 
-    let formData = new formData();
+    let formData = new FormData();
     formData.append('reimb_receipt', file);
     formData.append('reimb_type', requestTypeField.value);
     formData.append('reimb_amount', requestAmountField.value);
@@ -132,7 +132,7 @@ async function submitRequest() {
 
     catch(err) {
 
-        
+        let data = err.json();
         console.log(err);
         submitButtonHelper.textContent = err;
 

@@ -184,6 +184,7 @@ public class Controller {
 			
 			ctx.result(e.getMessage());
 			ctx.status(400);
+			logger.info(e.getMessage());
 			
 			
 		}
@@ -213,12 +214,14 @@ public class Controller {
 			reimbursement = service.createRequest(reimbursement, content, currentUser);
 			ctx.json("Request successfully created");
 			ctx.status(200);
+			logger.info("Request successfully created");
 			
 		}
 		
 		catch(Exception e) {
 			
 			ctx.status(400);
+			logger.info(e.getMessage());
 			ctx.json(e);
 			
 		}
@@ -283,6 +286,7 @@ public class Controller {
 			
 			ctx.json(e);
 			ctx.status(400);
+			logger.info(e.getMessage());
 			
 		}
 		
@@ -335,6 +339,7 @@ public class Controller {
 			
 			ctx.result(e.getMessage());
 			ctx.status(400);
+			logger.info(e.getMessage());
 			
 		}
 		
