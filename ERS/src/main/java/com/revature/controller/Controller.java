@@ -196,7 +196,7 @@ public class Controller {
 	public Handler createRequest = (ctx) -> {
 		
 		String param = ctx.pathParam("user_id");
-		int user_id = Integer.parseInt(param);
+		//int user_id = Integer.parseInt(param);
 		
 		ERS_reimbursement reimbursement = ctx.bodyAsClass(ERS_reimbursement.class);
 		UploadedFile file = ctx.uploadedFile("reimb_receipt");
@@ -365,7 +365,7 @@ public class Controller {
 		app.get("/ers_users/{user_id}", getUser);
 		//app.get("/ers_users", getSelf);
 		//ers_reimbursements endpoints
-		app.post("/ers_reimbursements/{user_id}", createRequest);
+		app.post("/ers_reimbursements", createRequest);
 		//app.delete("/ers_users/{user_id}", deleteRequest);
 		app.post("ers_reimbursements/{reimb_id}", updateRequest);
 		//app.get("ers_users/{user_id}", getUserRequests);

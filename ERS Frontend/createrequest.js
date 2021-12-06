@@ -10,12 +10,12 @@ const requestReceiptHelper = document.evaluate("//body/div[2]/div[2]/div[1]/div[
 const requestDescriptionHelper = document.evaluate("//body/div[2]/div[2]/div[1]/div[7]/div[1]/div[1]/div[1]/p[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 const submitButtonHelper = document.evaluate("//body/div[2]/div[2]/div[1]/div[9]/p[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 
-const URL = "ec2-18-117-174-173.us-east-2.compute.amazonaws.com";
+const url = "ec2-18-117-174-173.us-east-2.compute.amazonaws.com";
 
-requestReceiptField.addEventListener('input', validateReceipt);
-requestAmountField.addEventListener('input', validateAmount);
-requestTypeField.addEventListener('input', validateType);
-requestTypeField.addEventListener('input', validateDescription);
+requestReceiptField.addEventListener('change', validateReceipt);
+requestAmountField.addEventListener('change', validateAmount);
+requestTypeField.addEventListener('change', validateType);
+requestDescriptionField.addEventListener('change', validateDescription);
 submitButton.addEventListener('click', submitRequest);
 
 let receiptChecker = true; 
@@ -51,9 +51,9 @@ function validateAmount() {
 function validateType() {
 
     let requestType = requestTypeField.value;
-    requestType.toUpperCase();
+    requestType = requestType.toUpperCase();
 
-    if(requestType != "FOOD" && requestType != "LODGING" && requestType != "TRAVEL" && requestType != "OTHER") {
+    if((requestType != "FOOD") && (requestType != "LODGING") && (requestType != "TRAVEL") && (requestType != "OTHER")) {
 
         requestTypeHelper.textContent = "Type is not valid. Please use 'food', 'lodging', 'travel' or 'other'";  //yea this is a placeholder. Gunna replace this text field with a multiselector later
         typeChecker = false; 
@@ -70,6 +70,7 @@ function validateType() {
 function validateDescription() {
 
     let requestDescription = requestDescriptionField.value;
+    console.log(requestDescription.length);
 
     if(requestDescription.length > 255) {
 
@@ -100,7 +101,7 @@ async function submitRequest() {
 
     try {
 
-        let res = await fetch(`http://${url}:8081/ers_reimbursement/0`, { //Sending a post request with data of new user we want to create
+        let res = await fetch(`http://${url}:8081/ers_reimbursement`, { //Sending a post request with data of new user we want to create
 
         method: 'POST',
         body: JSON.stringify(requestToAdd),
@@ -120,7 +121,12 @@ async function submitRequest() {
 
         let data = await res.json();    //This will just spit back out the user we just created. 
         console.log(data);
-        submitHelper.textContent = "Request successfully created";
+        submitButtonHelper.textContent = "Request successfully created";
+
+        requestTypeField.value = "";
+        requestAmountField.value = "";
+        requestReceiptField.value = "";
+        requestDescriptionField.value = "";
 
     }
 
@@ -128,7 +134,7 @@ async function submitRequest() {
 
         
         console.log(err);
-        submitHelper.textContent = err;
+        submitButtonHelper.textContent = err;
 
     }
 
