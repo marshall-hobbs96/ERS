@@ -218,7 +218,7 @@ public class Controller {
 			
 		}
 		
-		catch(Exception e) {
+		catch(IllegalArgumentException e) {
 			
 			ctx.status(400);
 			logger.info(e.getMessage());
