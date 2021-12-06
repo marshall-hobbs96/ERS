@@ -62,7 +62,7 @@ async function submitLogin() {
 
         let data = await res.json();
         console.log(data);
-        window.location.replace('welcome.html');
+        window.location.href = 'welcome.html';
     }
 
     catch(err){

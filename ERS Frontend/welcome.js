@@ -7,9 +7,11 @@ window.addEventListener('load', getAndPopulateRequests);
 
 async function getAndPopulateRequests() {
 
-    let res = await fetch(`http://${url}:8081/ers_reimbursement`, {
+    console.log("getAndPopulateRequests");
 
-        method: 'get',
+    let res = await fetch(`http://${url}:8081/ers_reimbursements`, {
+
+        method: 'GET',
         credentials: 'include'
 
     });
@@ -22,6 +24,8 @@ async function getAndPopulateRequests() {
 }
 
 function populateRequestsTable(array) {
+
+    console.log("populateRequestsTable");
 
     for(let requestObject of array) {
 

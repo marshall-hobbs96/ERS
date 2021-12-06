@@ -195,7 +195,7 @@ public class Controller {
 	
 	public Handler createRequest = (ctx) -> {
 		
-		String param = ctx.pathParam("user_id");
+		//String param = ctx.pathParam("user_id");
 		//int user_id = Integer.parseInt(param);
 		
 		ERS_reimbursement reimbursement = ctx.bodyAsClass(ERS_reimbursement.class);

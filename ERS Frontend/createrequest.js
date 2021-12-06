@@ -101,7 +101,7 @@ async function submitRequest() {
 
     try {
 
-        let res = await fetch(`http://${url}:8081/ers_reimbursement`, { //Sending a post request with data of new user we want to create
+        let res = await fetch(`http://${url}:8081/ers_reimbursements`, { //Sending a post request with data of new user we want to create
 
         method: 'POST',
         body: JSON.stringify(requestToAdd),
