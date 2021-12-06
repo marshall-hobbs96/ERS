@@ -90,21 +90,21 @@ function validateDescription() {
 
 async function submitRequest() {
 
-    let requestToAdd = {
 
-        "reimb_type" : requestTypeField.value,
-        "reimb_amount" : requestAmountField.value,
-        "reimb_receipt" : requestReceiptField.value,
-        "reimb_description" : requestDescriptionField.value
+    const file = requestReceiptField.files[0];
 
-    }
+    let formData = new formData();
+    formData.append('reimb_receipt', file);
+    formData.append('reimb_type', requestTypeField.value);
+    formData.append('reimb_amount', requestAmountField.value);
+    formData.append('reimb_description', requestDescriptionField.value);
 
     try {
 
         let res = await fetch(`http://${url}:8081/ers_reimbursements`, { //Sending a post request with data of new user we want to create
 
         method: 'POST',
-        body: JSON.stringify(requestToAdd),
+        body: formData,
         crednetials: 'include'
 
      });

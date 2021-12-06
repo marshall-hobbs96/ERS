@@ -198,7 +198,10 @@ public class Controller {
 		//String param = ctx.pathParam("user_id");
 		//int user_id = Integer.parseInt(param);
 		
-		ERS_reimbursement reimbursement = ctx.bodyAsClass(ERS_reimbursement.class);
+		ERS_reimbursement reimbursement = new ERS_reimbursement();
+		reimbursement.setReimb_amount(Double.parseDouble(ctx.formParam("reimb_amount")));
+		reimbursement.setReimb_type(ctx.formParam("reimb_type"));
+		reimbursement.setReimb_description(ctx.formParam("reimb_description"));
 		UploadedFile file = ctx.uploadedFile("reimb_receipt");
 		InputStream content = file.getContent();
 		//reimbursement.setReimb_author(user_id);		//I dont think i really need this
