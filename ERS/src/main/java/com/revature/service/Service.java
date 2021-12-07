@@ -298,6 +298,8 @@ public class Service {
 			
 		}
 		
+		updatedReimbursement.setReimb_resolver(currentUser.getUser_id());
+		
 		dao.getRequest(updatedReimbursement.getReimb_id());
 		
 		dao.updateRequest(updatedReimbursement);

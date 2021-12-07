@@ -257,12 +257,14 @@ public class DAL {
 	
 	public ERS_reimbursement updateRequest(ERS_reimbursement updatedReimbursement) throws SQLException {
 		
-		String sql = "UPDATE ers_reimbursement SET reimb_status = ? WHERE reimb_id = ?;";
+		String sql = "UPDATE ers_reimbursement SET reimb_status = ?, reimb_resolved = ?, reimb_resolver = ? WHERE reimb_id = ?;";
 		
 		PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		
 		statement.setString(1, updatedReimbursement.getReimb_status());
-		statement.setInt(2, updatedReimbursement.getReimb_id());
+		statement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+		statement.setInt(3, updatedReimbursement.getReimb_resolver());
+		statement.setInt(4, updatedReimbursement.getReimb_id());
 		
 		int recordsUpdated = statement.executeUpdate();
 		
@@ -300,7 +302,15 @@ public class DAL {
 			reimb.setReimb_type(rs.getString("reimb_type"));
 			reimb.setReimb_description(rs.getString("reimb_description"));
 			reimb.setReimb_author(rs.getInt("reimb_author"));
+			reimb.setReimb_resolver(rs.getInt("reimb_resolver"));
 			//reimb.setReimb_receipt(new SerialBlob(rs.getBlob("reimb_receipt")));
+			
+			
+			if(rs.getTimestamp("reimb_resolved") != null) {
+				
+				reimb.setReimb_resolved(rs.getTimestamp("reimb_resolved").toString());
+				
+			}
 			
 			reimbursementsList.add(reimb);
 			
