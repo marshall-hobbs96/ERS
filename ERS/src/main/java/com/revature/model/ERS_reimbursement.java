@@ -1,16 +1,19 @@
 package com.revature.model;
 
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.sql.rowset.serial.SerialBlob;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 
 public class ERS_reimbursement {
 
 	private int reimb_id; 
 	private double reimb_amount;
-	private LocalDateTime reimb_submitted;
-	private LocalDateTime reimb_resolved; 
+	private String reimb_submitted;
+	private String reimb_resolved; 
 	private String reimb_status; 
 	private String reimb_type;
 	private String reimb_description; 
@@ -21,7 +24,7 @@ public class ERS_reimbursement {
 	public ERS_reimbursement() {
 		
 		this.reimb_status = "pending";
-		this.reimb_submitted = LocalDateTime.now(); 
+		this.reimb_submitted = LocalDateTime.now().toString(); 
 		
 	}
 	
@@ -29,7 +32,7 @@ public class ERS_reimbursement {
 			SerialBlob reimb_receipt, int reimb_author) {
 		
 		this.reimb_amount = reimb_amount;
-		this.reimb_submitted = LocalDateTime.now(); 
+		this.reimb_submitted = LocalDateTime.now().toString(); 
 		this.reimb_status = "pending";
 		this.reimb_type = reimb_type; 
 		this.reimb_description = reimb_description;
@@ -57,19 +60,19 @@ public class ERS_reimbursement {
 		this.reimb_amount = reimb_amount;
 	}
 
-	public LocalDateTime getReimb_submitted() {
+	public String getReimb_submitted() {
 		return reimb_submitted;
 	}
 
-	public void setReimb_submitted(LocalDateTime reimb_submitted) {
+	public void setReimb_submitted(String reimb_submitted) {
 		this.reimb_submitted = reimb_submitted;
 	}
 
-	public LocalDateTime getReimb_resolved() {
+	public String getReimb_resolved() {
 		return reimb_resolved;
 	}
 
-	public void setReimb_resolved(LocalDateTime reimb_resolved) {
+	public void setReimb_resolved(String reimb_resolved) {
 		this.reimb_resolved = reimb_resolved;
 	}
 

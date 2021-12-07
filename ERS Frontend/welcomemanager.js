@@ -2,14 +2,14 @@
 const url = "localhost";
 
 const tableBody = document.evaluate("//tbody", document, null, XPathResult.ANY_TYPE, null).iterateNext();
-const logoutButton = document.evaluate("//body/nav[1]/div[4]/div[2]/div[1]/a[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
+const logout = document.evaluate("//body/nav[1]/div[4]/div[2]/div[1]/a[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 
 
 window.addEventListener('load', getAndPopulateRequests);
-logoutButton.addEventListener('click', logoutUser);
+logout.addEventListener('click', logoutUser);
 
 
-async function logoutUSer() {
+async function logoutUser() {
 
     console.log("logout User");
 
@@ -34,7 +34,10 @@ async function logoutUSer() {
 
 }
 
+
+
 async function getAndPopulateRequests() {
+
 
     console.log("checking logged in user");
 
@@ -49,11 +52,11 @@ async function getAndPopulateRequests() {
 
         let userObj = await res.json();
 
-         if (userObj.userRole == "manager") {
+        if(userObj.userRole == "employee") {
 
-            window.location.href = "welcomemanager.html";
+            window.location.href = "welcome.html";
 
-        }
+        } 
 
     } else {
 
@@ -73,6 +76,7 @@ async function getAndPopulateRequests() {
     let requestsArray = await res.json();
 
     populateRequestsTable(requestsArray);
+    
 
 
 }
@@ -84,8 +88,8 @@ function populateRequestsTable(array) {
     for(let requestObject of array) {
 
         let tr = document.createElement('tr');
-
         let td = document.createElement('td');
+        td.className = "request_id";
         td.innerText = requestObject.reimb_id;
         tr.appendChild(td);
 
@@ -124,6 +128,15 @@ function populateRequestsTable(array) {
         td = document.createElement('td');
         td.innerText = requestObject.reimb_resolver ;
         tr.appendChild(td);
+
+        let approveButton = document.createElement('button');
+        approveButton.innerText = "approve";
+        tr.appendChild(approveButton);
+
+
+        let actionButton = document.createElement('button');
+        actionButton.innerText = "deny";
+        tr.appendChild(actionButton);
 
         tableBody.appendChild(tr);
 

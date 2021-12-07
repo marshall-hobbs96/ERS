@@ -256,7 +256,9 @@ public class Service {
 			
 		} else if((newReimbursement.getReimb_type().compareTo("LODGING") != 0) && (newReimbursement.getReimb_type().compareTo("TRAVEL") != 0) && (newReimbursement.getReimb_type().compareTo("FOOD") != 0) && (newReimbursement.getReimb_type().compareTo("OTHER") != 0)) {
 			
+			logger.info(newReimbursement.getReimb_type());
 			throw new IllegalArgumentException("Unable to create request. Reimbursement type is not valid. Must be 'LODGING', 'TRAVEL', 'FOOD' or 'OTHER'");
+			
 			
 		} else if(newReimbursement.getReimb_description().length() > 255) {
 			
@@ -268,7 +270,7 @@ public class Service {
 			
 		}
 		
-		newReimbursement.setReimb_submitted(LocalDateTime.now());
+		newReimbursement.setReimb_submitted(LocalDateTime.now().toString());
 		newReimbursement.setReimb_status("PENDING");
 		newReimbursement.setReimb_author(currentUser.getUser_id());;
 		
@@ -318,10 +320,12 @@ public class Service {
 		if(currentUser.getUser_role().compareTo("employee") == 0) {	//get all reimbursements for just this employee
 			
 			reimbursementsList = dao.getAllRequests(currentUser.getUser_id());
+			logger.info("Get all requests for employee invoked");
 			
 		} else if(currentUser.getUser_role().compareTo("manager") == 0) {	//Get all reimbursements
 			
 			reimbursementsList = dao.getAllRequests();
+			logger.info("Get all requests for manager invoked");
 			
 		} else {	//role not recognized, throw exception
 			
@@ -330,7 +334,7 @@ public class Service {
 		}
 		
 		
-		return reimbursementsList; //method stub
+		return reimbursementsList; 
 		
 	}
 	

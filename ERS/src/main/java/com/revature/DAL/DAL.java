@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -16,6 +17,7 @@ import org.postgresql.Driver;
 
 import com.revature.model.ERS_reimbursement;
 import com.revature.model.ERS_user;
+
 
 public class DAL {
 
@@ -204,7 +206,7 @@ public class DAL {
 		PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		
 		statement.setDouble(1, newReimbursement.getReimb_amount());
-		statement.setTimestamp(2, Timestamp.valueOf(newReimbursement.getReimb_submitted()));
+		statement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
 		statement.setString(3, newReimbursement.getReimb_status());
 		statement.setString(4, newReimbursement.getReimb_type());
 		statement.setString(5, newReimbursement.getReimb_description());
@@ -293,12 +295,12 @@ public class DAL {
 			
 			reimb.setReimb_id(rs.getInt("reimb_id"));
 			reimb.setReimb_amount(rs.getDouble("reimb_amount"));
-			reimb.setReimb_submitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
+			reimb.setReimb_submitted(rs.getTimestamp("reimb_submitted").toString());
 			reimb.setReimb_status(rs.getString("reimb_status"));
 			reimb.setReimb_type(rs.getString("reimb_type"));
 			reimb.setReimb_description(rs.getString("reimb_description"));
 			reimb.setReimb_author(rs.getInt("reimb_author"));
-			reimb.setReimb_receipt(new SerialBlob(rs.getBlob("reimb_receipt")));
+			//reimb.setReimb_receipt(new SerialBlob(rs.getBlob("reimb_receipt")));
 			
 			reimbursementsList.add(reimb);
 			
@@ -327,12 +329,12 @@ public class DAL {
 			
 			reimb.setReimb_id(rs.getInt("reimb_id"));
 			reimb.setReimb_amount(rs.getDouble("reimb_amount"));
-			reimb.setReimb_submitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
+			reimb.setReimb_submitted(rs.getTimestamp("reimb_submitted").toString());
 			reimb.setReimb_status(rs.getString("reimb_status"));
 			reimb.setReimb_type(rs.getString("reimb_type"));
 			reimb.setReimb_description(rs.getString("reimb_description"));
 			reimb.setReimb_author(rs.getInt("reimb_author"));
-			reimb.setReimb_receipt(new SerialBlob(rs.getBlob("reimb_receipt")));
+			//reimb.setReimb_receipt(new SerialBlob(rs.getBlob("reimb_receipt")));
 			
 			reimbList.add(reimb);
 			
@@ -348,10 +350,38 @@ public class DAL {
 		
 	}
 	
-	public ArrayList<ERS_reimbursement> getAllRequests(int userId) {
+	public ArrayList<ERS_reimbursement> getAllRequests(int userId) throws SQLException {
 
+		String sql = "SELECT * FROM ers_reimbursement WHERE reimb_author = ?;";
 		
-		return new ArrayList<ERS_reimbursement>(); //method stub 
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		statement.setInt(1, userId);
+		
+		ResultSet rs = statement.executeQuery();
+		
+		ArrayList<ERS_reimbursement> reimbList = new ArrayList<>();
+		
+		while(rs.next()) {
+			
+			ERS_reimbursement reimb = new ERS_reimbursement();
+			reimb.setReimb_amount(rs.getDouble("reimb_amount"));
+			reimb.setReimb_author(rs.getInt("reimb_author"));
+			reimb.setReimb_description(rs.getString("reimb_description"));
+			reimb.setReimb_id(rs.getInt("reimb_id"));
+			//reimb.setReimb_receipt(new SerialBlob(rs.getBlob("reimb_receipt")));
+			//reimb.setReimb_resolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+			reimb.setReimb_resolver(rs.getInt("reimb_resolver"));
+			reimb.setReimb_status(rs.getString("reimb_status"));
+			//reimb.setReimb_submitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
+			reimb.setReimb_type(rs.getString("reimb_type"));
+			
+			reimbList.add(reimb);
+			
+			
+		}
+		
+		return reimbList; //method stub 
 		
 	}
 	
@@ -409,6 +439,7 @@ public class DAL {
 		user.setUser_first_name(resultSet.getString("user_first_name"));
 		user.setUser_last_name(resultSet.getString("user_last_name"));
 		user.setUser_id(resultSet.getInt("user_id"));
+		user.setUser_role(resultSet.getString("user_role"));
 		
 		return user;
 		

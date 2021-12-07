@@ -19,6 +19,8 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 public class Controller {
 	
 	private Service service;
@@ -199,6 +201,9 @@ public class Controller {
 		//String param = ctx.pathParam("user_id");
 		//int user_id = Integer.parseInt(param);
 		
+		ERS_user currentUser = (ERS_user) ctx.req.getSession().getAttribute("currentuser");
+		logger.info(currentUser.toString());
+		
 		ERS_reimbursement reimbursement = new ERS_reimbursement();
 		reimbursement.setReimb_amount(Double.parseDouble(ctx.formParam("reimb_amount")));
 		reimbursement.setReimb_type(ctx.formParam("reimb_type"));
@@ -207,7 +212,7 @@ public class Controller {
 		InputStream content = file.getContent();
 		//reimbursement.setReimb_author(user_id);		//I dont think i really need this
 		
-		ERS_user currentUser = (ERS_user) ctx.req.getSession().getAttribute("currentuser");
+
 		
 		try {
 			
@@ -276,6 +281,7 @@ public class Controller {
 		try {
 			
 			ArrayList<ERS_reimbursement> reimbList = service.getAllRequests(currentUser);
+			logger.info(reimbList.toString());
 			ctx.json(reimbList);
 			ctx.status(200);
 			
@@ -332,6 +338,10 @@ public class Controller {
 			ctx.status(200);
 			ctx.json(user);
 			
+			ERS_user currentUser = (ERS_user) ctx.req.getSession().getAttribute("currentuser");
+			
+			logger.info(currentUser.toString());
+			
 			
 		}
 		
@@ -348,30 +358,56 @@ public class Controller {
 	
 	public Handler logoutUser = (ctx) -> {
 		
-		HttpServletRequest req = ctx.req; 
-		req.getSession().invalidate();
-		ctx.status(200);
-		ctx.result("successfully logged out");
+		try{
+			HttpServletRequest req = ctx.req; 
+			req.getSession().invalidate();
+			ctx.status(200);
+			ctx.result("successfully logged out");
+			logger.info("User successfully logged out");
+		}
 		
+		catch(Exception e) {
+			
+			ctx.status(400);
+			logger.info("Issue logging out." + e.getMessage());
+			
+		}
 	};
 	
-//	public Handler getSelf = (ctx) -> {
-//		
-//		//method stub
-//		
-//	};
+	public Handler getSelf = (ctx) -> {
+		try {
+			
+			ERS_user currentUser = (ERS_user) ctx.req.getSession().getAttribute("currentuser");
+			
+			ctx.json(currentUser);
+			ctx.status(200);
+			logger.info("getSelf successful");
+			
+		}
+		catch(Exception e) {
+			
+			ctx.result(e.getMessage());
+			ctx.status(400);
+			logger.info("getSelf failed");
+			logger.info(e.getMessage());
+
+			
+		}
+
+		
+	};
 	
 	
 
 	public void registerEndpoints(Javalin app) {
 		//ers_users table endpoints
-		app.post("/ers_users/login", loginUser);	
+		app.post("/ers_users/login", loginUser);
+		app.post("/ers_users/logout", logoutUser);
 		app.post("/ers_users", createUser);		
-		app.delete("/ers_users/{user_id}", deleteUser);
+		//app.delete("/ers_users/{user_id}", deleteUser);
 		//app.patch("/ers_users", updateUser);
-		app.get("/ers_users", getAllUsers);
-		app.get("/ers_users/{user_id}", getUser);
-		//app.get("/ers_users", getSelf);
+		//app.get("/ers_users", getAllUsers);
+		app.get("/ers_users", getSelf);
 		//ers_reimbursements endpoints
 		app.post("/ers_reimbursements", createRequest);
 		//app.delete("/ers_users/{user_id}", deleteRequest);

@@ -13,8 +13,8 @@ let lastnameHelp = document.evaluate("//body/div[2]/div[2]/div[1]/div[6]/div[1]/
 let emailHelp = document.evaluate("//body/div[2]/div[2]/div[1]/div[7]/div[1]/div[1]/div[1]/p[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 let submitHelper = document.evaluate("//body/div[2]/div[2]/div[1]/div[9]/p[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 
-//let url = 'localhost';
-let url = "ec2-18-117-174-173.us-east-2.compute.amazonaws.com";
+let url = 'localhost';
+//let url = "ec2-18-117-174-173.us-east-2.compute.amazonaws.com";
 usernameForm.addEventListener('input', verifyUsername);
 retypePasswordForm.addEventListener('input', verifyRetypedPassword);
 firstnameForm.addEventListener('input', verifyFirstname);

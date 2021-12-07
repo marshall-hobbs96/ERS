@@ -4,8 +4,8 @@ let passwordField = document.evaluate("//body/nav[1]/div[4]/div[1]/div[1]/div[1]
 let usernameHelp = document.evaluate("//body/nav[1]/div[4]/div[1]/div[1]/div[1]/div[1]/p[2]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 let passwordHelp = document.evaluate("//body/nav[1]/div[4]/div[1]/div[1]/div[1]/div[2]/p[2]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 
-//let url = 'localhost';
-let url = "ec2-18-117-174-173.us-east-2.compute.amazonaws.com";
+let url = 'localhost';
+//let url = "ec2-18-117-174-173.us-east-2.compute.amazonaws.com";
 
 loginButton.addEventListener('click', submitLogin);
 
@@ -62,7 +62,19 @@ async function submitLogin() {
 
         let data = await res.json();
         console.log(data);
-        window.location.href = 'welcome.html';
+        if (data.user_role === "employee") {
+
+            window.location.href = "welcome.html";
+
+        } else if (data.user_role === "manager") {
+
+            window.location.href = 'welcomemanager.html';
+
+        } else {
+
+            throw "User have invalid role credentials";
+
+        }
     }
 
     catch(err){
