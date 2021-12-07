@@ -292,7 +292,7 @@ public class Service {
 			
 			throw new IllegalArgumentException("Unable to update request. Must be logged in as a manager to update requests");
 			
-		} else if((updatedReimbursement.getReimb_status().compareTo("approved") != 0) && (updatedReimbursement.getReimb_status().compareTo("denied") != 0)) {
+		} else if((updatedReimbursement.getReimb_status().compareTo("APPROVED") != 0) && (updatedReimbursement.getReimb_status().compareTo("DENIED") != 0)) {
 			
 			throw new IllegalArgumentException("Unable to update request. Status not valid. Valid status is 'approved' and 'denied'");
 			

@@ -2,11 +2,17 @@
 const url = "localhost";
 
 const tableBody = document.evaluate("//tbody", document, null, XPathResult.ANY_TYPE, null).iterateNext();
-const logout = document.evaluate("//body/nav[1]/div[4]/div[2]/div[1]/a[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
+const logout = document.evaluate("//body/nav[1]/div[4]/div[3]/div[1]/a[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
+const pendingFilter = document.evaluate("//a[contains(text(),'PENDING')]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
+const approvedFilter = document.evaluate("//a[contains(text(),'APPROVED')]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
+const deniedFilter = document.evaluate("//a[contains(text(),'DENIED')]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 
 
 window.addEventListener('load', getAndPopulateRequests);
 logout.addEventListener('click', logoutUser);
+pendingFilter.addEventListener('click', getAndPopulateRequstsPending);
+approvedFilter.addEventListener('click', getAndPopulateRequestsApproved);
+deniedFilter.addEventListener('click', getAndPopulateRequestsDenied);
 
 
 async function logoutUser() {
@@ -37,7 +43,6 @@ async function logoutUser() {
 
 
 async function getAndPopulateRequests() {
-
 
     console.log("checking logged in user");
 
@@ -130,18 +135,147 @@ function populateRequestsTable(array) {
         tr.appendChild(td);
 
         let approveButton = document.createElement('button');
+        approveButton.className = "action-button";
         approveButton.innerText = "approve";
+
+        //ok lets just....add the request ID to the button's dataset? Should be all I need to send a fetch request and modify the request's status
+
+        approveButton.dataset.request_id = requestObject.reimb_id;
+        approveButton.dataset.action = "APPROVED";
         tr.appendChild(approveButton);
 
 
         let actionButton = document.createElement('button');
+        actionButton.className = "action-button";
         actionButton.innerText = "deny";
+        actionButton.dataset.request_id = requestObject.reimb_id;
+        actionButton.dataset.action = "DENIED";
         tr.appendChild(actionButton);
 
         tableBody.appendChild(tr);
 
     }
 
+    tableBody.addEventListener('click', async event => {
+
+        if(event.target.className == "action-button") {
+
+            console.log(event.target.dataset.request_id);
+            console.log(event.target.dataset.action);
+
+            //ok now we need to send the fetch request from here, and then repopulate the table with our newly modified request.
+            //maybe just reload the page after a successful fetch request? probably easier than clearing the table body and repopulating
+
+            const formData = new FormData();
+
+            formData.append('action', event.target.dataset.action);
+
+            let res = await fetch(`http://${url}:8081/ers_reimbursements/${event.target.dataset.request_id}`, {
+
+                method: 'POST',
+                credentials: 'include',
+                body: formData
+
+            });
+
+            if(res.status == 200) {
+
+                window.location.reload();
+
+            } else {
+
+                console.log("error updating request");
+
+            }
+
+        }
+
+    });
+
+
+
 }
 
+async function getAndPopulateRequstsPending() {
 
+
+    let res = await fetch(`http://${url}:8081/ers_reimbursements/PENDING`, {
+
+        method: 'GET',
+        credentials: 'include'
+
+    });
+
+    if(res.staus = 200) {
+
+        clearTableBody();
+
+        let data = await res.json();
+        console.log(data);
+        //populateRequestsTable(data);
+
+    }else{
+
+        console.log("Error getting reimbursements by status");
+
+    }
+
+}
+
+async function getAndPopulateRequestsApproved() {
+
+    let res = await fetch(`http://${url}:8081/ers_reimbursements/APPROVED`, {
+
+        method: 'GET',
+        credentials: 'include'
+
+    });
+
+    if(res.staus = 200) {
+
+        clearTableBody();
+
+        let data = await res.json();
+        populateRequestsTable(data);
+
+    }else{
+
+        console.log("Error getting reimbursements by status");
+
+    }
+
+}
+
+async function getAndPopulateRequestsDenied() {
+
+    let res = await fetch(`http://${url}:8081/ers_reimbursements/DENIED`, {
+
+        method: 'GET',
+        credentials: 'include'
+
+    });
+
+    if(res.staus = 200) {
+
+        clearTableBody();
+
+        let data = await res.json();
+        populateRequestsTable(data);
+
+    }else{
+
+        console.log("Error getting reimbursements by status");
+
+    }
+
+}
+
+function clearTableBody() {
+
+    while(tableBody.firstChild) {
+
+        tableBody.removeChild(tableBody.firstChild);
+
+    }
+
+}

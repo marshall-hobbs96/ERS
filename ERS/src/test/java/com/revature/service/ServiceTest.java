@@ -741,17 +741,17 @@ public class ServiceTest {
 	@Test
 	public void createRequestNegativeUserIsntValid() throws SQLException {	//Trying to create a request for a user that doesn't exist
 		
-		ERS_reimbursement request = new ERS_reimbursement(30.3, "travel", "Some description", null, 1);
+		ERS_reimbursement request = new ERS_reimbursement(30.3, "TRAVEL", "Some description", null, 1);
 		ERS_user user = new ERS_user();
 		when(mockDao.getUser(eq(1))).thenThrow(new SQLException("Unable to find user"));
 		
-		SQLException e = assertThrows(SQLException.class, () -> {
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
 			
 			sut.createRequest(request, null, user);
 			
 		});
 		
-		assertEquals("Unable to find user", e.getMessage());
+		assertEquals("Unable to create request. Must be logged in to create request", e.getMessage());
 		
 	}
 	

@@ -245,8 +245,10 @@ public class Controller {
 		String param = ctx.pathParam("reimb_id");
 		int reimb_id = Integer.parseInt(param);
 		
-		ERS_reimbursement reimb = ctx.bodyAsClass(ERS_reimbursement.class);	//I only want to update the status, but ill load the whole class anyways
+		param = ctx.formParam("action");		
+		ERS_reimbursement reimb = new ERS_reimbursement();
 		reimb.setReimb_id(reimb_id);
+		reimb.setReimb_status(param);
 		HttpSession session = ctx.req.getSession();
 		ERS_user currentUser = (ERS_user) session.getAttribute("currentuser");
 		
@@ -256,6 +258,7 @@ public class Controller {
 			reimb = service.updateRequest(reimb, currentUser);
 			ctx.status(200);
 			ctx.json(reimb);
+			logger.info(reimb.toString());
 			
 		}
 		
@@ -263,6 +266,7 @@ public class Controller {
 			
 			ctx.status(400);
 			ctx.json(e);
+			logger.info(e.getMessage());
 			
 		}
 		
@@ -282,8 +286,8 @@ public class Controller {
 			
 			ArrayList<ERS_reimbursement> reimbList = service.getAllRequests(currentUser);
 			logger.info(reimbList.toString());
-			ctx.json(reimbList);
 			ctx.status(200);
+			ctx.json(reimbList);
 			
 			
 		}
@@ -308,7 +312,8 @@ public class Controller {
 			
 			ArrayList<ERS_reimbursement> reimbList = service.getAllRequests(status, currentUser);
 			ctx.json(reimbList);
-			ctx.json(200);
+			ctx.status(200);
+			logger.info(reimbList.toString());
 			
 		}
 		
@@ -316,6 +321,7 @@ public class Controller {
 			
 			ctx.json(e);
 			ctx.status(400);
+			logger.info(e.getMessage());
 			
 		}
 		
