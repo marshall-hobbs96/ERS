@@ -379,11 +379,10 @@ public class DAL {
 			reimb.setReimb_author(rs.getInt("reimb_author"));
 			reimb.setReimb_description(rs.getString("reimb_description"));
 			reimb.setReimb_id(rs.getInt("reimb_id"));
-			//reimb.setReimb_receipt(new SerialBlob(rs.getBlob("reimb_receipt")));
-			//reimb.setReimb_resolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+			reimb.setReimb_resolved(rs.getTimestamp("reimb_resolved").toString());
 			reimb.setReimb_resolver(rs.getInt("reimb_resolver"));
 			reimb.setReimb_status(rs.getString("reimb_status"));
-			//reimb.setReimb_submitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
+			reimb.setReimb_submitted(rs.getTimestamp("reimb_submitted").toString());
 			reimb.setReimb_type(rs.getString("reimb_type"));
 			
 			reimbList.add(reimb);

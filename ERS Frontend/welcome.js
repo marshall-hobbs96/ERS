@@ -9,7 +9,7 @@ window.addEventListener('load', getAndPopulateRequests);
 logoutButton.addEventListener('click', logoutUser);
 
 
-async function logoutUSer() {
+async function logoutUser() {
 
     console.log("logout User");
 
@@ -100,6 +100,7 @@ function populateRequestsTable(array) {
         td = document.createElement('td');
         td.innerText = requestObject.reimb_resolved;
         tr.appendChild(td);
+        console.log(requestObject.reimb_resolved);
 
         td = document.createElement('td');
         td.innerText = requestObject.reimb_status;
@@ -113,9 +114,33 @@ function populateRequestsTable(array) {
         td.innerText = requestObject.reimb_description;
         tr.appendChild(td);
 
-        td = document.createElement('td');
-        td.innerText = requestObject.reimb_receipt;
-        tr.appendChild(td);
+        let viewImageButton = document.createElement('button');
+        viewImageButton.innerText = 'View Image';
+        
+
+        viewImageButton.addEventListener('click', () => {
+
+            let assignmentImageModal = document.querySelector('#assignment-image-modal');
+
+            let modalCloseElement = assignmentImageModal.querySelector('button');
+            modalCloseElement.addEventListener('click', () => {
+
+                assignmentImageModal.classList.remove('is-active');
+
+            });
+
+            let modalContentElement = assignmentImageModal.querySelector('.modal-content');
+            modalContentElement.innerHTML = '';
+
+            let imageElement = document.createElement('img');
+            imageElement.setAttribute('src', `http://${url}:8081/ers_reimbursements/get_image/${requestObject.reimb_id}`);
+            modalContentElement.appendChild(imageElement);
+
+            assignmentImageModal.classList.add('is-active'); // add a class to the modal element to have it display
+
+        });
+
+        tr.appendChild(viewImageButton);
 
         td = document.createElement('td');
         td.innerText = requestObject.reimb_author;
