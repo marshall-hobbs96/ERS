@@ -357,6 +357,15 @@ public class Service {
 		
 		return reimbList; //method stub
 		
+	}
+	
+	
+	
+
+	public InputStream getRequestImage(int request_id) throws SQLException {
+		
+		return dao.getRequestImage(request_id);
+		
 	}	
 	
 

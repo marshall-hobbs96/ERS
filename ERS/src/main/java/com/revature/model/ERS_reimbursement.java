@@ -1,6 +1,7 @@
 package com.revature.model;
 
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class ERS_reimbursement {
 	private String reimb_status; 
 	private String reimb_type;
 	private String reimb_description; 
-	private SerialBlob reimb_receipt;
+	private InputStream reimb_receipt;
 	private int reimb_author; 
 	private int reimb_resolver; 
 	
@@ -29,7 +30,7 @@ public class ERS_reimbursement {
 	}
 	
 	public ERS_reimbursement(double reimb_amount, String reimb_type, String reimb_description,
-			SerialBlob reimb_receipt, int reimb_author) {
+			InputStream reimb_receipt, int reimb_author) {
 		
 		this.reimb_amount = reimb_amount;
 		this.reimb_submitted = LocalDateTime.now().toString(); 
@@ -100,11 +101,11 @@ public class ERS_reimbursement {
 		this.reimb_description = reimb_description;
 	}
 
-	public SerialBlob getReimb_receipt() {
+	public InputStream getReimb_receipt() {
 		return reimb_receipt;
 	}
 
-	public void setReimb_receipt(SerialBlob reimb_receipt) {
+	public void setReimb_receipt(InputStream reimb_receipt) {
 		this.reimb_receipt = reimb_receipt;
 	}
 

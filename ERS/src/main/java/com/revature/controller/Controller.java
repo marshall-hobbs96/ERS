@@ -403,6 +403,30 @@ public class Controller {
 		
 	};
 	
+	public Handler getRequestImage = (ctx) -> {
+		
+		try {
+			
+			String param = ctx.pathParam("request_id");
+			int request_id = Integer.parseInt(param);
+			
+			InputStream content = service.getRequestImage(request_id);
+			
+			ctx.status(200);
+			ctx.result(content);
+			logger.info("Getting image successful");
+			
+		}
+		catch(Exception e) {
+			
+			ctx.status(400);
+			ctx.result(e.getMessage());
+			logger.info(e.getMessage());
+			
+		}
+		
+	};
+	
 	
 
 	public void registerEndpoints(Javalin app) {
@@ -420,6 +444,7 @@ public class Controller {
 		app.post("ers_reimbursements/{reimb_id}", updateRequest);
 		//app.get("ers_users/{user_id}", getUserRequests);
 		app.get("/ers_reimbursements", getAllRequests);	//has dual functionality for employee and managers
+		app.get("/ers_reimbursements/get_image/{request_id}", getRequestImage);
 		app.get("/ers_reimbursements/{status}", getAllRequestsByStatus);	//only for managers. Will probably modify later if I want to expand beyond MVP
 		
 		

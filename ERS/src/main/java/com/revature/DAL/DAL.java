@@ -303,7 +303,7 @@ public class DAL {
 			reimb.setReimb_description(rs.getString("reimb_description"));
 			reimb.setReimb_author(rs.getInt("reimb_author"));
 			reimb.setReimb_resolver(rs.getInt("reimb_resolver"));
-			//reimb.setReimb_receipt(new SerialBlob(rs.getBlob("reimb_receipt")));
+			InputStream image = rs.getBinaryStream("reimb_receipt");
 			
 			
 			if(rs.getTimestamp("reimb_resolved") != null) {
@@ -452,6 +452,31 @@ public class DAL {
 		user.setUser_role(resultSet.getString("user_role"));
 		
 		return user;
+		
+	}
+	
+	
+	
+
+
+	public InputStream getRequestImage(int request_id) throws SQLException {
+		
+		String sql = "SELECT reimb_receipt FROM ers_reimbursement WHERE reimb_id = ?;";
+		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		
+		statement.setInt(1, request_id);
+		
+		ResultSet rs = statement.executeQuery();
+		
+		if(rs.next()) {
+			
+			InputStream image = rs.getBinaryStream("reimb_receipt");
+			return image; 
+			
+		}
+		
+		return null; 
 		
 	}
 }
