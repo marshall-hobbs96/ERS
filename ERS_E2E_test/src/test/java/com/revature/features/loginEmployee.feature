@@ -5,7 +5,7 @@ Scenario: Employee successfully logs in (positive test)
 	When I enter in a valid username
 	And I enter in a valid password 
 	And I click the login button
-	Then I should be taken to the employee welcome page and be able to see my first and last name displayed in the webpage
+	Then I should be taken to the employee welcome page
 	
 Scenario: Employee doesnt include username (negative test)
 	Given I am at the login page 

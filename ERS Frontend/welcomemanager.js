@@ -6,6 +6,7 @@ const logout = document.evaluate("//body/nav[1]/div[4]/div[3]/div[1]/a[1]", docu
 const pendingFilter = document.evaluate("//a[contains(text(),'PENDING')]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 const approvedFilter = document.evaluate("//a[contains(text(),'APPROVED')]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 const deniedFilter = document.evaluate("//a[contains(text(),'DENIED')]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
+const helper = document.evaluate("//body/p[1]", document, null, XPathResult.ANY_TYPE, null).iterateNext();
 
 
 window.addEventListener('load', getAndPopulateRequests);
@@ -112,6 +113,7 @@ function populateRequestsTable(array) {
 
         td = document.createElement('td');
         td.innerText = requestObject.reimb_status;
+        td.className = "reimb_status";
         tr.appendChild(td);
 
         td = document.createElement('td');
@@ -204,6 +206,8 @@ function populateRequestsTable(array) {
 
             if(res.status == 200) {
 
+                helper.innerHTML = "Updating request successful";
+                await sleep(1000);
                 window.location.reload();
 
             } else {
@@ -236,7 +240,7 @@ async function getAndPopulateRequstsPending() {
 
         let data = await res.json();
         console.log(data);
-        //populateRequestsTable(data);
+        populateRequestsTable(data);
 
     }else{
 
@@ -301,5 +305,11 @@ function clearTableBody() {
         tableBody.removeChild(tableBody.firstChild);
 
     }
+
+}
+
+function sleep(ms) {
+
+    return new Promise(resolve => setTimeout(resolve, ms));
 
 }

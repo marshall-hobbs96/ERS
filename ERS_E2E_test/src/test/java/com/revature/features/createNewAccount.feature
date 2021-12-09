@@ -60,25 +60,25 @@ Scenario: Creating a new account but forgetting email (negative test)
 	And I click the create user submit button
 	Then I should see a message telling me I am missing an email
 
-Scenario: Creating a new account but username is not unique (negative test)
-	Given I am at the create account page
-	When I type in an existing username into the username field
-	And I type in a new unique password into the password field
-	And I type in a first name into the first name field
-	And I type in a last name into the last name field
-	And I type in a new unique email into the email field
-	And I click the create user submit button
-	Then I should see a message telling me username is already taken
+#Scenario: Creating a new account but username is not unique (negative test)
+#	Given I am at the create account page
+#	When I type in an existing username into the username field
+#	And I type in a new unique password into the password field
+#	And I type in a first name into the first name field
+#	And I type in a last name into the last name field
+#	And I type in a new unique email into the email field
+#	And I click the create user submit button
+#	Then I should see a message telling me username is already taken
 
-Scenario: Creating a new account but email is not unique (negative test)
-	Given I am at the create account page
-	When I type in a new unique username into the username field
-	And I type in a new unique password into the password field
-	And I type in a first name into the first name field
-	And I type in a last name into the last name field
-	And I type in an existing email into the email field
-	And I click the create user submit button
-	Then I should see a message telling me email is already taken
+#Scenario: Creating a new account but email is not unique (negative test)
+#	Given I am at the create account page
+#	When I type in a new unique username into the username field
+#	And I type in a new unique password into the password field
+#	And I type in a first name into the first name field
+#	And I type in a last name into the last name field
+#	And I type in an existing email into the email field
+#	And I click the create user submit button
+#	Then I should see a message telling me email is already taken
 
 Scenario: Creating a new account but email is not valid (negative test)
 	Given I am at the create account page

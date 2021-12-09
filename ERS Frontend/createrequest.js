@@ -74,14 +74,26 @@ async function logoutUser() {
 
 }
 
-let receiptChecker = true; 
-let amountChecker = true;
-let typeChecker = true;
-let descriptionChecker = true;
+let receiptChecker = false; 
+let amountChecker = false;
+let typeChecker = false;
+let descriptionChecker = false;
 
 function validateReceipt() {
 
     let receiptFile = requestReceiptField.value;
+
+    if(receiptFile === null || receiptFile === undefined) {
+
+        requestReceiptHelper.textContent = "Please provide a receipt";
+        receiptChecker = false; 
+
+    } else {
+
+        requestReceiptHelper.textContent = "";
+        receiptChecker = true; 
+
+    }
     //todo I think. Might just have to regex the file. Honestly lets just get mvp rn 
 
 }
@@ -109,10 +121,11 @@ function validateType() {
     let requestType = requestTypeField.value;
     requestType = requestType.toUpperCase();
 
-    if((requestType != "FOOD") && (requestType != "LODGING") && (requestType != "TRAVEL") && (requestType != "OTHER")) {
+    if((requestType !== "FOOD") && (requestType !== "LODGING") && (requestType !== "TRAVEL") && (requestType !== "OTHER")) {
 
         requestTypeHelper.textContent = "Type is not valid. Please use 'food', 'lodging', 'travel' or 'other'";  //yea this is a placeholder. Gunna replace this text field with a multiselector later
         typeChecker = false; 
+        console.log("here?");
 
     } else {
 
@@ -146,7 +159,7 @@ function validateDescription() {
 
 async function submitRequest() {
 
-
+    console.log("submit button clicked");
     const file = requestReceiptField.files[0];
 
     let formData = new FormData();
@@ -156,6 +169,24 @@ async function submitRequest() {
     formData.append('reimb_description', requestDescriptionField.value);
 
     try {
+
+        if(!descriptionChecker) {
+
+            throw "Unable to create request. Description length too long. Please provide a description under 255 characters";
+
+        } else if(!typeChecker) {
+
+            throw "Unable to create request. Type is invalid. Please provide valid type of request";
+
+        } else if(!amountChecker) {
+
+            throw "Unable to create request. Amount is invalid. Must be greater than 0";
+
+        } else if(!receiptChecker) {
+
+            throw "Unable to create request. No receipt attached. Please provide a receipt";
+
+        }
 
         let res = await fetch(`http://${url}:8081/ers_reimbursements`, { //Sending a post request with data of new user we want to create
 

@@ -56,6 +56,7 @@ async function submitLogin() {
 
         } else if(res.status == 400) { //something wrong with info we sent
 
+            usernameHelp.innerHTML = "Invalid username password combination";
             throw res.body;
 
         }
