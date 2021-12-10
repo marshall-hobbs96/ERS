@@ -69,6 +69,9 @@ public class ERSTest {
 	@Then("I should be taken to the create new account page")
 	public void i_should_be_taken_to_the_create_new_account_page() {
 
+		WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(3));
+		wdw.until(ExpectedConditions.urlMatches(CreateUserPage.URL));
+		
 	    String currentURL = driver.getCurrentUrl();
 	    assertEquals(CreateUserPage.URL, currentURL);
 	    driver.close();
@@ -92,7 +95,7 @@ public class ERSTest {
 		
 		for(int i = 0; i < 20; i++) {
 			
-			newUsername += (char)newRandGen.nextInt();
+			newUsername += (char)((newRandGen.nextInt() % 25) + 65);
 			
 		}
 		
@@ -140,7 +143,7 @@ public class ERSTest {
 		
 		for(int i = 0; i < 20; i++) {
 			
-			newEmail += (char)newRandGen.nextInt();
+			newEmail += (char)((newRandGen.nextInt() % 25) + 65);
 			
 		}
 		
@@ -168,6 +171,10 @@ public class ERSTest {
 	@Then("I should see a message telling me I am missing a username")
 	public void i_should_see_a_message_telling_me_i_am_missing_a_username() {
 	    WebElement usernameHelper = driver.findElement(By.xpath(CreateUserPage.usernameHelper));
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(usernameHelper, "Please enter a valid username"));
+	    
 	    assertEquals("Please enter a valid username", usernameHelper.getText());
 	    driver.close();
 	    driver.quit();
@@ -176,6 +183,10 @@ public class ERSTest {
 	@Then("I should see a message telling me I am missing a password")
 	public void i_should_see_a_message_telling_me_i_am_missing_a_password() {
 	    WebElement passwordHelper = driver.findElement(By.xpath(CreateUserPage.passwordHelper));
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(passwordHelper, "Please enter a valid password"));
+	    
 	    assertEquals("Please enter a valid password", passwordHelper.getText());
 	    driver.close();
 	    driver.quit();
@@ -184,6 +195,10 @@ public class ERSTest {
 	@Then("I should see a message telling me I am missing a first name")
 	public void i_should_see_a_message_telling_me_i_am_missing_a_first_name() {
 	    WebElement firstnameHelper = driver.findElement(By.xpath(CreateUserPage.firstnameHelper));
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(firstnameHelper, "Please enter a valid firstname"));
+	    
 	    assertEquals("Please enter a valid firstname", firstnameHelper.getText());
 	    driver.close();
 	    driver.quit();
@@ -192,6 +207,10 @@ public class ERSTest {
 	@Then("I should see a message telling me I am missing a last name")
 	public void i_should_see_a_message_telling_me_i_am_missing_a_last_name() {
 	    WebElement lastnameHelper = driver.findElement(By.xpath(CreateUserPage.lastnameHelper));
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(lastnameHelper, "Please enter a valid lastname"));
+	    
 	    assertEquals("Please enter a valid lastname", lastnameHelper.getText());
 	    driver.close();
 	    driver.quit();
@@ -200,6 +219,10 @@ public class ERSTest {
 	@Then("I should see a message telling me I am missing an email")
 	public void i_should_see_a_message_telling_me_i_am_missing_an_email() {
 	    WebElement emailHelper = driver.findElement(By.xpath(CreateUserPage.emailHelper));
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(emailHelper, "Please enter a valid email"));
+	    
 	    assertEquals("Please enter a valid email", emailHelper.getText());
 	    driver.close();
 	    driver.quit();
@@ -257,6 +280,10 @@ public class ERSTest {
 	@Then("I should see a message telling me I have an invalid email")
 	public void i_should_see_a_message_telling_me_i_have_an_invalid_email() {
 	    WebElement emailHelper = driver.findElement(By.xpath(CreateUserPage.emailHelper));
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(emailHelper, "Please enter a valid email"));
+	    
 	    assertEquals("Please enter a valid email", emailHelper.getText());
 	    driver.close();
 	    driver.quit();
@@ -272,6 +299,10 @@ public class ERSTest {
 	@Then("I should see a message telling me the retyped password doesnt match")
 	public void i_should_see_a_message_telling_me_the_retyped_password_doesnt_match() {
 	    WebElement retypedPasswordHelper = driver.findElement(By.xpath(CreateUserPage.retypePasswordHelper));
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(retypedPasswordHelper, "Passwords don't match!"));
+	    
 	    assertEquals("Passwords don't match!", retypedPasswordHelper.getText());
 	    driver.close();
 	    driver.quit();
@@ -281,6 +312,7 @@ public class ERSTest {
 	public void i_type_in_a_new_unique_password_into_the_password_field_but_retyped_password_doesnt_match() {
 	    WebElement passwordField = driver.findElement(By.xpath(CreateUserPage.passwordField));
 	    WebElement retypedPasswordField = driver.findElement(By.xpath(CreateUserPage.retypePasswordField));
+	    
 	    
 	    passwordField.sendKeys("password");
 	    retypedPasswordField.sendKeys("passwoooord");
@@ -335,6 +367,9 @@ public class ERSTest {
 	@Then("I should be taken to the employee welcome page and be able to see my first and last name displayed in the webpage")
 	public void i_should_be_taken_to_the_employee_welcome_page_and_be_able_to_see_my_first_and_last_name_displayed_in_the_webpage() {
 	    
+		WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+		wdw.until(ExpectedConditions.urlMatches(WelcomePage.URL));
+		
 		assertEquals(WelcomePage.URL, driver.getCurrentUrl());
 		
 		driver.close();
@@ -345,6 +380,10 @@ public class ERSTest {
 	@Then("I should see a message telling me to please enter in a username")
 	public void i_should_see_a_message_telling_me_to_please_enter_in_a_username() {
 	    WebElement usernameHelper = driver.findElement(By.xpath(LoginPage.usernameHelper));
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(usernameHelper, "Please enter a username"));
+	    
 	    assertEquals("Please enter a username", usernameHelper.getText());
 	    
 	    driver.close();
@@ -356,6 +395,10 @@ public class ERSTest {
 	@Then("I should see a message telling me to please enter in a password")
 	public void i_should_see_a_message_telling_me_to_please_enter_in_a_password() {
 	    WebElement passwordHelper = driver.findElement(By.xpath(LoginPage.passwordHelper));
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(passwordHelper, "Please enter a password"));
+	    
 	    assertEquals("Please enter a password", passwordHelper.getText());
 	    
 	    driver.close();
@@ -406,7 +449,11 @@ public class ERSTest {
 	
 	@Then("I should see a message saying request successfully submitted")
 	public void i_should_see_a_message_saying_request_successfully_submitted() {
-	    WebElement submitHelper = driver.findElement(By.xpath(CreateRequestPage.submitHelper));
+	    WebElement submitHelper = driver.findElement(By.xpath(CreateRequestPage.submitHelper)); 
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(submitHelper, "Request successfully created"));
+	    
 	    assertEquals("Request successfully created", submitHelper.getText());
 	    
 	    driver.close();
@@ -446,6 +493,10 @@ public class ERSTest {
 	public void i_should_see_a_message_saying_request_amount_can_not_be_equal_to_or_less_than_zero() {
 	    
 		WebElement submitHelper = driver.findElement(By.xpath(CreateRequestPage.submitHelper));
+		
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(submitHelper, "Unable to create request. Amount is invalid. Must be greater than 0"));
+		
 		assertEquals("Unable to create request. Amount is invalid. Must be greater than 0", submitHelper.getText());
 		
 		driver.close();
@@ -458,6 +509,10 @@ public class ERSTest {
 	public void i_should_see_a_message_saying_please_select_a_valid_type_for_request() {
 	    
 		WebElement submitHelper = driver.findElement(By.xpath(CreateRequestPage.submitHelper));
+		
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(submitHelper, "Unable to create request. Type is invalid. Please provide valid type of request"));
+		
 		assertEquals("Unable to create request. Type is invalid. Please provide valid type of request", submitHelper.getText());
 		
 		driver.close();
@@ -471,6 +526,11 @@ public class ERSTest {
 	public void i_should_see_a_message_saying_please_attach_a_valid_receipt() {
 	    
 		WebElement submitHelper = driver.findElement(By.xpath(CreateRequestPage.submitHelper));
+		
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(submitHelper, "Unable to create request. No receipt attached. Please provide a receipt"));
+		
+		
 		assertEquals("Unable to create request. No receipt attached. Please provide a receipt", submitHelper.getText());
 		
 		driver.close();
@@ -483,6 +543,12 @@ public class ERSTest {
 	public void i_should_see_a_message_saying_please_provide_a_description_for_request() {
 		
 	    WebElement submitHelper = driver.findElement(By.xpath(CreateRequestPage.submitHelper));
+	    
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(submitHelper, "Unable to create request. Please provide a valid description"));
+		
+	
+	    
 	    assertEquals("Unable to create request. Please provide a valid description", submitHelper.getText());
 	    
 	    driver.close();
@@ -755,6 +821,7 @@ public class ERSTest {
 	    
 		WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
 		wdw.until(ExpectedConditions.urlMatches(WelcomeManagerPage.URL));
+		wdw.until(ExpectedConditions.elementToBeClickable(By.xpath(WelcomeManagerPage.approveRequestButton)));
 		
 		WebElement approveButton = driver.findElement(By.xpath(WelcomeManagerPage.approveRequestButton));
 		approveButton.click();
@@ -765,6 +832,11 @@ public class ERSTest {
 	public void i_should_see_a_message_saying_the_request_has_been_approved() {
 	   
 		WebElement helper = driver.findElement(By.xpath(WelcomeManagerPage.helper));
+		
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(helper, "Updating request successful"));
+		
+		
 		
 		assertEquals("Updating request successful", helper.getText());
 		
@@ -779,6 +851,7 @@ public class ERSTest {
 
 		WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
 		wdw.until(ExpectedConditions.urlMatches(WelcomeManagerPage.URL));
+		wdw.until(ExpectedConditions.elementToBeClickable(By.xpath(WelcomeManagerPage.denyRequestButton)));
 		
 		WebElement denyButton = driver.findElement(By.xpath(WelcomeManagerPage.denyRequestButton));
 		denyButton.click();
@@ -791,6 +864,9 @@ public class ERSTest {
 	public void i_should_see_a_message_saying_the_request_has_been_denied() {
 	    
 		WebElement helper = driver.findElement(By.xpath(WelcomeManagerPage.helper));
+		
+	    WebDriverWait wdw = new WebDriverWait(driver, Duration.ofSeconds(2));
+	    wdw.until(ExpectedConditions.textToBePresentInElement(helper, "Updating request successful"));
 		
 		assertEquals("Updating request successful", helper.getText());
 		
