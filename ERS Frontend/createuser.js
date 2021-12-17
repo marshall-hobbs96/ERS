@@ -15,11 +15,11 @@ let submitHelper = document.evaluate("//body/div[2]/div[2]/div[1]/div[9]/p[1]", 
 
 let url = 'localhost';
 //let url = "ec2-18-117-174-173.us-east-2.compute.amazonaws.com";
-usernameForm.addEventListener('input', verifyUsername);
-retypePasswordForm.addEventListener('input', verifyRetypedPassword);
-firstnameForm.addEventListener('input', verifyFirstname);
-lastnameForm.addEventListener('input', verifyLastname);
-emailForm.addEventListener('input', verifyEmail);
+usernameForm.addEventListener('change', verifyUsername);
+retypePasswordForm.addEventListener('change', verifyRetypedPassword);
+firstnameForm.addEventListener('change', verifyFirstname);
+lastnameForm.addEventListener('change', verifyLastname);
+emailForm.addEventListener('change', verifyEmail);
 
 submitButton.addEventListener('click', async () => {    //Just grabbing all the data from the fields we made
 

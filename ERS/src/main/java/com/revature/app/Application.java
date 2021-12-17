@@ -31,6 +31,7 @@ public class Application {
 			
 			
 		});
+		logger.info(System.getenv("db_password"));
 		
 		Controller controller = new Controller(new Service(new DAL()));
 		controller.registerEndpoints(app);
